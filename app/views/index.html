@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {(meta.html)}
+    <title>trc</title>
+  </head>
+  <body style="background: #000000;">
+    <div class="container1">
+      <section class="header">
+        <div>
+          <img src="/static/files/logo.png" />
+          <span class="login">后台登录</span>
+        </div>
+      </section>
+      <section class="banner swiper-container"> 
+        <div class="swiper-wrapper">
+          <div class="swiper-slide lunbo">
+                <a href=""><img src="/static/files/banner.png" /></a>
+                <p>明天怎么玩啊明天怎么玩啊明天怎么玩啊明天怎么玩啊</p>
+          </div>
+          <div class="swiper-slide lunbo"><img src="/static/files/banner.png" />
+                <p>单身狗收到了打击单身狗收到了打击单身狗收到了打击单身狗收到了打击单身狗收到了打击</p>
+          </div>
+          <div class="swiper-slide lunbo"><img src="/static/files/banner.png" /><p>你们想好没啊你们想好没啊你们想好没啊你们想好没啊你们想好没啊你们想好没啊你们想好没啊你们想好没啊</p></div>
+        </div>
+        <div class="pagination"></div>
+      </section>
+    </div>
+    <div class="container">
+      <section class="btnBox">
+        <img src="/static/files/bg.png" />
+        <a class="btn1" href=""><img src="/static/files/btn-1.png" /></a>
+        <a class="btn2" href=""><img src="/static/files/btn-2.png" /></a>
+        <a class="btn3" href=""><img src="/static/files/btn-3.png" /></a>
+        <a class="btn4" href=""><img src="/static/files/btn-4.png" /></a>
+      </section>
+    </div>
+    {(footer.html)}
+    
+    
+    <!--pop-->
+    <div class="mask"></div>
+    <div class="pop">
+      <a id="auth_close" href="javascript:;" title="关闭"><img src="/static/files/close.png"></a>
+      <div class="popItem">
+        后台登录
+      </div>
+      <div class="popTable">
+        <table>
+          <tbody><tr>
+            <th width="40%">请输入邮箱</th>
+            <td width="60%"><input class="form-control" type="text"> </td>
+          </tr>
+          <tr>
+            <th>请输入密码</th>
+            <td><input class="form-control" type="text"> </td>
+          </tr>
+        </tbody></table>
+      </div>
+      <p><button class="popbuttom">登录</button></p>
+    </div>
+  
+    <script>
+      $(function(){
+        //轮播
+        if($('.lunbo').length === 1) {
+          var mySwiper2 = new Swiper('.banner', {
+            autoplay: 5000,
+            visibilityFullFit: true,
+            loop: false,
+          });
+        } else {
+          var mySwiper2 = new Swiper('.banner', {
+            autoplay: 5000,
+            visibilityFullFit: true,
+            loop: true,
+            pagination: '.pagination',
+          });
+        }
+
+        //banner自适应高度
+        $('.swiper-container').css('height',$(this).width()*0.3);
+        $('.swiper-wrapper').css('height',$('.swiper-container').width()*0.3);
+        $('.swiper-slide').css('height',$('.swiper-container').width()*0.3);
+        $('.header').css('height','80px');
+        
+        //login pop
+        $('.login').on('click',function(){
+          $('.mask').css({'display':'block'});
+          $('.pop').css({'display':'block'});
+        });
+        $('#auth_close').click(function(){
+          $('.mask').css({'display':'none'});
+          $('.pop').css({'display':'none'});
+        })
+        //banner 文字显示
+        $('.banner .swiper-slide img').hover(function(){
+          if ($('.banner .swiper-slide p').is(':hidden')) {
+            $('.banner .swiper-slide p').fadeIn();
+          } else{
+            $('.banner .swiper-slide p').fadeOut();
+          }
+          
+        })
+      })
+    </script>
+  </body>
+</html>
