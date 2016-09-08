@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet"  href="/static/css/style.css"/>
+		<link rel="stylesheet" href="css/idangerous.swiper.css" />
+		<link rel="stylesheet" href="css/idangerous.swiper.scrollbar.css" />
+		<link rel="stylesheet" href="css/small.swiper.css" />
+	</head>
+	<body style="background:url(img/bg2.jpg) repeat-y;background-size: 100%;">
+		<div>
+			<div class="logo">
+				<img src="img/logo.png"/>
+			</div>
+		
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">
+						<img src="img/banner.png" />
+					</div>
+					<div class="swiper-slide">
+						<img src="img/banner.png" />
+						
+					</div>
+					<div class="swiper-slide">
+						<img src="img/banner.png" />
+						
+					</div>
+					<div class="swiper-slide">
+						<img src="img/banner.png" />
+					</div>
+				</div>
+				<div class="pagination"></div>
+			</div>
+		</div>
+		<div class="wrap">
+			<div class="centerBox">
+				<div class="return">
+					<span>返回上一级</span>
+				</div>
+				<div class="erweima">
+					<img src="img/two-code.png" />
+				</div>
+			</div>
+			
+			<div class="pic2">
+				<div class="pic2Word">
+					<p class="word1">柔道概述试测试测试测试</p>
+					<p class="word2">柔道具体介绍测试测试测试测试测试测试测试测试测试测试</p>
+				</div>
+				<div class="pic2Box">
+					<div class="picShow">
+						<img src="img/pic2.png" />
+					</div>
+					<div class="picList">
+						<ul>
+							<li><img src="img/pic2.png" alt="" /></li>
+							<li><img src="img/pic3.png" alt="" /></li>
+							<li><img src="img/pic2.png" alt="" /></li>
+							<li><img src="img/pic2.png" alt="" /></li>
+							<li><img src="img/pic2.png" alt="" /></li>
+							<li><img src="img/pic2.png" alt="" /></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			
+			<div class="pic3">
+				<div class="pic3Word">
+					<p class="word1">柔道教练：某某某</p>
+					<p class="word2">教练简介测试测试测试测试测试测试测试测试测试测试测试测试测试</p>
+				</div>
+				<div class="pic3Box">
+					<img src="img/pic3.png" />
+				</div>
+			</div>
+			
+			<div class="pic4">
+				<div class="head">
+					<span>TRC动力柔道馆</span>
+					<p></p>
+				</div>
+				<div class="table">
+					<table>
+						<tr>
+							<th>时间</th>
+							<th>星期一</th>
+							<th>星期二</th>
+							<th>星期三</th>
+							<th>星期四</th>
+							<th>星期五</th>
+							<th>星期六</th>
+							<th>星期天</th>
+						</tr>
+						<tr>
+							<td class="timer">19:00~20:00</td>
+							<td>成人柔术</td>
+							<td>成人柔术</td>
+							<td>成人柔术</td>
+							<td>成人柔术成人</td>
+							<td>成人柔术</td>
+							<td>成人柔术</td>
+							<td>成人柔术成人柔术</td>
+						</tr>
+						<tr class="lasttr">
+							<td class="timer">19:00~20:00</td>
+							<td>成人柔术</td>
+							<td>成人柔术</td>
+							<td>成人柔术</td>
+							<td>成人柔术成人</td>
+							<td>成人柔术</td>
+							<td>成人柔术</td>
+							<td>成人柔术成人柔术</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="footer1">
+			<span>公司地址：成都市高新区盛华北路199号附301号三层</span>
+			<span>公司名称：成都洛科维品牌管理有限公司</span>
+			<span>联系我们：400 0283772</span>
+		</div>
+		<script type="text/javascript" src="js/jquery-1.10.1.min.js" ></script>
+		<script type="text/javascript" src="js/idangerous.swiper.min.js" ></script>
+		 <script>
+		 	//banner轮播
+			  var mySwiper = new Swiper('.swiper-container',{
+			    pagination: '.pagination',
+			    loop:true,
+			    autoplay: 2000,
+			    grabCursor: true,
+			    paginationClickable: true
+			  })
+			  $('.arrow-left').on('click', function(e){
+			    e.preventDefault()
+			    mySwiper.swipePrev()
+			  })
+			  $('.arrow-right').on('click', function(e){
+			    e.preventDefault()
+			    mySwiper.swipeNext()
+			  })
+			  //banner的高度自适应
+			  $('.swiper-container').css('height',$(this).width()*0.3);
+			  //点击缩略图 显示大图
+			  $('.picList ul li').on('click',function(){
+			  	var src=$(this).find('img').attr('src');
+			  	$('.picList ul li img.imgActive').removeClass('imgActive');
+			  	$(this).find('img').addClass('imgActive');
+			  	$('.picShow img').attr('src',src);
+			  })
+	    </script>
+	</body>
+</html>

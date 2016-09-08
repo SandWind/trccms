@@ -33,6 +33,12 @@ luac.out
 *.def
 *.exp
 
+#PhotoGraphicFile
+*.jpeg
+*.jpg
+*.gif
+*.png
+
 # Shared objects (inc. Windows DLLs)
 *.dll
 *.so
