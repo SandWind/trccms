@@ -6,8 +6,10 @@ local judoPageRouter= require("app.routes.judo")
 local yogoPageRouter= require("app.routes.yoga")
 local freepowerPageRouter =  require("app.routes.freepower")
 local AerabicPageRouter= require("app.routes.aerabic")
--- local aerabicPageRouter =  require("app.routes.aerabic")
--- local AdminPageRouter   =  require("app.routes.admin")
+local AdminPageRouter = require("app.routes.admin")
+local AuthRouter =  require("app.routes.auth")
+
+
 return function(app)
 
     -- -- group router, 对以`/user`开始的请求做过滤处理
@@ -41,10 +43,8 @@ return function(app)
     app:use("/yogo",yogoPageRouter())
     app:use("/freepower",freepowerPageRouter())
     app:use("/aerabic",AerabicPageRouter())
-    -- app:use("/judo",judoPageRouter())  --瑜伽页面
-    -- app:use("/yogo",yogoPageRouter())  
-    -- app:use("/freepower",freepowerPageRouter()) 
-    -- app:use("/aerabic",aerabicPageRouter())
-    -- app:use("/admin",AdminPageRouter())
+    app:use("/admin",AdminPageRouter())
+    app:use("/auth",AuthRouter())
+    
 end
 

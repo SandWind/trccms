@@ -1,11 +1,12 @@
 return {
 	-- 白名单配置：不需要登录即可访问；除非要二次开发，否则不应更改
 	whitelist = {
-		"^/admin/Ad$",
-		"^/admin/Judo$",
-		"^/admin/Yoga$",
-		"^/admin/FreePower$",
-		"^/admin/Aerabic$"
+		"^/admin$",
+		"^/admin/ad$",
+		"^/admin/judo$",
+		"^/admin/yoga$",
+		"^/admin/freePower$",
+		"^/admin/aerabic$"
 	},
 
 	-- 静态模板配置，保持默认不修改即可

@@ -2,14 +2,18 @@
 <html>
   <head>
     {(meta.html)}
-    <title>trc</title>
+    <title>TRC动力馆</title>
   </head>
   <body style="background: #000000;">
     <div class="container1">
       <section class="header">
         <div>
           <img src="/static/files/logo.png" />
-          <span class="login"><img src="/static/files/managerLogo.jpg" /></span>
+          <span class="login">管理</span>
+          <!-- <span class="login">
+            <a class="login">管理</a>
+          </span> -->
+          
         </div>
       </section>
       <section class="banner swiper-container"> 
@@ -39,28 +43,11 @@
     
     
     <!--pop-->
-    <div class="mask"></div>
-    <div class="pop">
-      <a id="auth_close" href="javascript:;" title="关闭"><img src="/static/files/close.png"></a>
-      <div class="popItem">
-        后台登录
-      </div>
-      <div class="popTable">
-        <table>
-          <tbody><tr>
-            <th width="40%">请输入邮箱</th>
-            <td width="60%"><input class="form-control" type="text"> </td>
-          </tr>
-          <tr>
-            <th>请输入密码</th>
-            <td><input class="form-control" type="text"> </td>
-          </tr>
-        </tbody></table>
-      </div>
-      <p><button class="popbuttom">登录</button></p>
-    </div>
+    {(login.html)}
   
     <script>
+
+
       $(function(){
         //轮播
         if($('.lunbo').length === 1) {
@@ -102,6 +89,32 @@
           }
           
         })
+
+        $('#submit').click(function(){
+            var username =$("input[name=username]").val();
+            var password = $("input[name=password]").val();
+
+            $.ajax({
+                url : '/auth/login',
+                type : 'post',
+                data : {
+                    username: username,
+                    password: password
+                },
+                dataType : 'json',
+                success : function(result) {
+                    if(result.success){
+                        window.location.href="/admin/";
+                    }else{
+                       alert(result.msg)
+                    }
+                },
+                error : function() {
+                    
+                }
+            });
+        })
+
       })
     </script>
   </body>
