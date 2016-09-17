@@ -9,6 +9,7 @@ local utils = require("app.libs.utils")
 local debug = require("lor.lib.debug")
 local pwd_secret = require("app.config.config").pwd_secret
 local lor = require("lor.index")
+local form= require("app.libs.form")
 -- local user_model = require("app.model.user")
 local auth_router = lor:Router()
 
@@ -90,17 +91,39 @@ local auth_router = lor:Router()
 -- end)
 
 auth_router:post("/login", function(req, res, next)
-    local username = req.body.username 
-    local password = req.body.password
 
-    debug(username,password)
-    
-    if not username or not password or username == "" or password == "" then
-        return res:json({
-            success = false,
-            msg = "用户名和密码不得为空."
-        })
+    local  formdata,err = form.getFormTable()
+    if not err then
+        if not formdata then
+            if type(formdata) == "table" then 
+                for k,v in pairs(formdata) do
+                  ngx.log(ngx.ERR,k,v)
+                end
+            end
+        end
     end
+
+    
+    -- local username = req.body.username 
+    -- local password = req.body.password
+    -- local heads = req.heads
+
+    -- if heads then
+    --     ngx.log(ngx.ERR,"Content-Type:",headers)
+    -- end
+    
+
+   
+    -- local raw  = req.body_raw
+    -- ngx.log(ngx.ERR,"raw=",raw)
+
+
+    -- if not username or not password or username == "" or password == "" then
+    --     return res:json({
+    --         success = false,
+    --         msg = "用户名和密码不得为空."
+    --     })
+    -- end
 
     -- local isExist = false
     -- local userid = 0
@@ -146,6 +169,7 @@ auth_router:get("/logout", function(req, res, next)
     res.locals.create_time = ""
     req.session.destroy()
     res:redirect("/index")
+
 end)
 
 
