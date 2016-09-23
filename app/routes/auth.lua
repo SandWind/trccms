@@ -9,7 +9,7 @@ local utils = require("app.libs.utils")
 local debug = require("lor.lib.debug")
 local pwd_secret = require("app.config.config").pwd_secret
 local lor = require("lor.index")
-local form= require("app.libs.form")
+local loader = require("app.libs.form")
 -- local user_model = require("app.model.user")
 local auth_router = lor:Router()
 
@@ -91,8 +91,11 @@ local auth_router = lor:Router()
 -- end)
 
 auth_router:post("/login", function(req, res, next)
+    ngx.log(ngx.ERR,"调用登录接口")
 
-    local  formdata,err = form.getFormTable()
+    local  formdata,err =loader.getFormTable();
+    
+
     if not err then
         if not formdata then
             if type(formdata) == "table" then 
@@ -101,6 +104,8 @@ auth_router:post("/login", function(req, res, next)
                 end
             end
         end
+    else
+      ngx.log(ngx.ERR,err)  
     end
 
     

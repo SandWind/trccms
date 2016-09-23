@@ -10,105 +10,106 @@ $Id: form.lua
 License:
 Copyright 2014, mochui.net, all rights reserved.
 --]]
+local formload= {}
 
--- module("form", package.seeall)
-
-local upload = require("resty.upload");
+local upload = require("resty.upload")
 
 
 local function decodeContentDisposition(value)
-    local ret;
+    local ret = {}
 
     local typ, paras = string.match(value, "([%w%-%._]+);(.+)");
 
     if typ then
-        ret                 = {};
-        ret.dispositionType = typ;
-        ret.paras           = {};
+        ret                 = {}
+        ret.dispositionType = typ
+        ret.paras           = {}
         
         if paras then
             for paraKey, paraValue in string.gmatch(paras, '([%w%.%-_]+)="([%w%.%-_]+)"') do
-                ret.paras[paraKey] = paraValue;
+                ret.paras[paraKey] = paraValue
             end
         end
     end
 
-    return ret;
+    return ret
 end
 
 local function decodeHeaderItem(key, value)
-    local ret;
+    local ret = {}
 
     if key == "Content-Disposition" then
         ret = decodeContentDisposition(value);
     end
 
     if key == "Content-Type" then
-        ret = value;
+        ret = value
     end
 
-    return ret;
+    return ret
 end
 
 local function decodeHeader(res)
     if type(res) == "table" and res[1] and res[2] then
-        key     = res[1];
-        value   = decodeHeaderItem(res[1], res[2]);
+        key     = res[1]
+        value   = decodeHeaderItem(res[1], res[2])
     else
-        key     = res;
-        value   = res;
+        key     = res
+        value   = res
     end
 
-    return key, value;
+    return key, value
 end
 
-function getFormTable()
-    local chunkSize = 4096;
-    local formdata  = {};
-    local part      = {};
-    part.headers    = {};
-    part.body       = "";
+function formload.getFormTable()
+    local chunkSize = 4096
+    local formdata  = {}
+    local part      = {}
+    part.headers    = {}
+    part.body       = ""
     
-    local headers   = {};
+    local headers   = {}
 
-    local form, err = upload:new(chunkSize);
+    local form, err = upload:new(chunkSize)
     if not form then
-        return nil, err;
+        return nil, err
     end
 
-    form:set_timeout(1000);
+    form:set_timeout(1000)
 
     while true do
-        local typ, res, err = form:read();
+        local typ, res, err = form:read()
 
         if not typ then
-            return nil, err;
+            return nil, err
         end
 
         if typ == "header" then
-            local key, value = decodeHeader(res);
+            local key, value = decodeHeader(res)
             if key then
                 part.headers[key] = value;
             else
-                return nil, "failed to decode header:" .. res;
+                return nil, "failed to decode header:" .. res
             end
         end
         
         if typ == "body" then
-            part.body = part.body .. res;
+            part.body = part.body .. res
         end
 
         if typ == "part_end" then
-            table.insert(formdata, part);
-            part            = {};
-            part.headers    = {};
-            part.body       = "";
+            table.insert(formdata, part)
+            part            = {}
+            part.headers    = {}
+            part.body       = ""
         end
 
         if typ == "eof" then
-            break;
+            break
         end
     end
 
-    return formdata, err;
+    return formdata, err
 end
+
+return formload;
