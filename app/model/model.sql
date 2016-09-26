@@ -16,6 +16,27 @@ CREATE TABLE `ad_topic` (
 
 
 
+DROP TABLE IF EXISTS `stadium_theme`;
+
+CREATE TABLE `stadium_theme` 
+(
+	`stadium_id`   int(11) unsigned NOT NULL AUTO_INCREMENT,
+	`tadium_img_name_1`  varchar(225) NOT NULL DEFAULT '',
+	`tadium_img_name_2`  varchar(225) NOT NULL DEFAULT '',
+	`tadium_img_name_3`  varchar(225) NOT NULL DEFAULT '',
+	`tadium_img_name_4`  varchar(225) NOT NULL DEFAULT '',
+	`main_img_name`      varchar(225) NOT NULL DEFAULT '',
+	`img_path`           varchar(225) NOT NULL DEFAULT '',
+	`introduction`	     varchar(1000) NOT NULL DEFAULT '',
+	`pag_name`		     varchar(225) NOT NULL DEFAULT '',
+	PRIMARY KEY (`stadium_id`)
+	UNIQUE KEY `unique_pag_name` (`pag_name`)
+	
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+
 
 DROP TABLE IF EXISTS `detail_cover`;
 
@@ -35,20 +56,7 @@ CREATE TABLE `detail_cover`
 
 DROP TABLE IF EXISTS `stadium_theme`;
 
-CREATE TABLE `stadium_theme` 
-(
-	`stadium_id`   int(11) unsigned NOT NULL AUTO_INCREMENT,
-	`tadium_img_name_1`  varchar(225) NOT NULL DEFAULT '',
-	`tadium_img_name_2`  varchar(225) NOT NULL DEFAULT '',
-	`tadium_img_name_3`  varchar(225) NOT NULL DEFAULT '',
-	`tadium_img_name_4`  varchar(225) NOT NULL DEFAULT '',
-	`main_img_name`      varchar(225) NOT NULL DEFAULT '',
-	`img_path`           varchar(225) NOT NULL DEFAULT '',
-	`introduction`	     varchar(1000) NOT NULL DEFAULT '',
-	`pag_name`		     varchar(225) NOT NULL DEFAULT '',
-	PRIMARY KEY (`stadium_id`)
 
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
 DROP TABLE IF EXISTS `trainer_theme`;
