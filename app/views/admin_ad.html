@@ -23,19 +23,19 @@
 			</div>
 			<div class="showpic3">
 				<div class="pic-box2">
-					<img class="showimg" src="img/pic.png" />
+					<img class="showimg" src="/static/files/pic.png" />
 					<p class="discr1">测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试</p>
-					<img class="del" src="img/del.png" />
+					<img class="del" src="/static/files/del.png" />
 				</div>
 				<div class="pic-box2">
-					<img class="showimg" src="img/pic.png" />
+					<img class="showimg" src="/static/files/pic.png" />
 					<p class="discr1">测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试</p>
-					<img class="del" src="img/del.png" />
+					<img class="del" src="/static/files/del.png" />
 				</div>
 				<div class="pic-box2">
-					<img class="showimg" src="img/pic.png" />
+					<img class="showimg" src="/static/files/pic.png" />
 					<p class="discr1">测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试</p>
-					<img class="del" src="img/del.png" />
+					<img class="del" src="/static/files/del.png" />
 				</div>
 			</div>
 			
@@ -172,8 +172,8 @@
 						</div>
 						
 						<div class="saveBox">
-							<span class="btn-3">确认</span>
-							<span class="btn-4">预览</span>
+							<span class="btn-new-ad">确认</span>
+							<span class="btn-preview-ad">预览</span>
 						</div>
 					</div>
 				</div>
@@ -213,13 +213,15 @@
 		 	$(document).ready(function(){
 				$('.discr1').each(function(){
 				var maxwidth=35;
-					if($(this).text().length>maxwidth){
+					if($(this).text().length>maxwidth)
+					{
 						$(this).text($(this).text().substring(0,maxwidth));
 						$(this).html($(this).html()+"...");
 					}
 				});
 				$('img.del').on('click',function(){
-					$(this).parent('div').css('display','none');
+// ·					$(this).parent('div').css('display','none');
+					$(this).parent('div').hide();
 				})
 			});
 
@@ -302,6 +304,10 @@
 				});
 
 				$('#btnUpload').on('click',function(){
+
+					var img = cropper.getDataURL();
+					
+					$.ajax();
 					$("#coverCut").attr("src", "");
 					// reader.readAsDataURL(this.files[0]);
 				});
@@ -317,6 +323,15 @@
 					window.onmousewheel = document.onmousewheel = true; //IE/Opera/Chrome  
 				});
 			});
+
+			$('.btn-new-ad').on('click',function(){
+				alert('提交广告帖');
+			});
+			$('.btn-preview-ad').on('click',function(){
+				alert('预览广告帖');
+			});
+			
+							
 		</script>
 	</body>
 

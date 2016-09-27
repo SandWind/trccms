@@ -415,6 +415,9 @@
 				</div>
 			</div>
 		</div>
+
+
+
 		<!--end container-->
 		<script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap-wysiwyg.js"></script>
@@ -437,7 +440,8 @@
 					}
 				});
 				$('img.del').on('click',function(){
-					$(this).parent('div').css('display','none');
+					// $(this).parent('div').css('display','none');
+					$(this).parent('div').hide();
 				})
 			});
 		</script>
