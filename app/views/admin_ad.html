@@ -57,7 +57,7 @@
 			<div class="edit">
 					<label>文章内容<span class="red">*</span></label>
 					<div class="editBox">
-						<div class="btn-toolbar" data-role="editor-toolbar" data-target="#editor">
+						<!-- <div class="btn-toolbar" data-role="editor-toolbar" data-target="#editor">
 							<div class="btn-group">
 								<a class="btn dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Font"><i class="icon-font"></i><b class="caret"></b></a>
 								<ul class="dropdown-menu">
@@ -167,8 +167,11 @@
 							<input type="text" data-edit="inserttext" id="voiceBtn" x-webkit-speech="" style="display: none;">
 						</div>
 					
-						<div id="editor" contenteditable="true">
+						<div id="editor">
 							<blockquote style="margin: 0 0 0 40px; border: none; padding: 0px;"><span style="color: inherit; text-align: justify;">Go ahead…</span></blockquote>
+						</div> -->
+						<div id="adEditor">
+							<p>请输入广告内容</p>
 						</div>
 						
 						<div class="saveBox">
@@ -187,8 +190,8 @@
 				<div class="thumbBox"></div>
 				<div class="spinner" style="display: none">Loading...</div>
 			</div>
-			<div class="cropped">
-				<img id="coverCut" align="absmiddle" style="width:313px;height:198px;margin-top:4px;box-shadow:0px 0px 12px #7E7E7E;" />
+			<div class="cropped"> 
+				<img id="coverCut" align="absmiddle" style="width:1200px;height:395px;margin-top:4px;box-shadow:0px 0px 12px #7E7E7E;" />
 				<p>313px*198px</p>
 				<div class="action">
 					<!-- <input type="file" id="file" style=" width: 200px">-->
@@ -208,8 +211,37 @@
 		<!--end container-->
 		
 		<script>
-			 $('#editor').wysiwyg();
+			 /*$('#editor').wysiwyg({
+			 	hotKeys: {
+    						'ctrl+b meta+b': 'bold',
+    						'ctrl+i meta+i': 'italic',
+    						'ctrl+u meta+u': 'underline',
+    						'ctrl+z meta+z': 'undo',
+    						'ctrl+y meta+y meta+shift+z': 'redo'
+  						}
+
+			 	});
 			 $('#editor').cleanHtml();
+			*/ 
+			var editor = new wangEditor('adEditor');
+			editor.config.uploadImgUrl = '/upload';
+
+        	// 自定义上传事件
+        	editor.config.uploadImgFns.onload = function (resultText, xhr) {
+            // resultText 服务器端返回的text
+            // xhr 是 xmlHttpRequest 对象，IE8、9中不支持
+
+            // 上传图片时，已经将图片的名字存在 editor.uploadImgOriginalName
+            	var originalName = editor.uploadImgOriginalName || '';  
+            	alert(resultText);
+            // 如果 resultText 是图片的url地址，可以这样插入图片：
+            	editor.command(null, 'insertHtml', '<img src="' + resultText + '" alt="' + originalName + '" style="max-width:100%;"/>');
+            // 如果不想要 img 的 max-width 样式，也可以这样插入：
+            // editor.command(null, 'InsertImage', resultText);
+       	    };
+
+    		editor.create();
+    		
 		 	$(document).ready(function(){
 				$('.discr1').each(function(){
 				var maxwidth=35;
