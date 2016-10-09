@@ -72,10 +72,7 @@ local function _multipart_formdata(config)
 	
 		elseif typ == "body" then
 			if file then
-				ngx.log(ngx.ERR,"图片内容",res)
-				local filecontent = decode_base64(res); 
-				ngx.log(ngx.ERR,"解码图片内容",filecontent)
-				file:write(filecontent)
+				file:write(res)
 				success = true
 			else
 				success = false
@@ -120,11 +117,12 @@ local function uploader(config)
 						req.file.extname = extname
 						req.file.path = path
 						req.file.filename = filename
+						-- req.file.url = ngx_var.host .."/static/files/"..filename
+						req.file.url = "/static/files/"..filename
 					else
 						req.file = req.file or {}
 						req.file.success = false
 						req.file.msg = msg
-						req.file.url = ngx_var.host..'/static/files/'..filename
 					end
 					next()
 					

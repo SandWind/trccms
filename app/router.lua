@@ -8,7 +8,7 @@ local freepowerPageRouter =  require("app.routes.freepower")
 local AerabicPageRouter= require("app.routes.aerabic")
 local AdminPageRouter = require("app.routes.admin")
 local AuthRouter =  require("app.routes.auth")
-
+local  uploadRouter = require("app.routes.upload")
 
 return function(app)
 
@@ -45,6 +45,7 @@ return function(app)
     app:use("/aerabic",AerabicPageRouter())
     app:use("/admin",AdminPageRouter())
     app:use("/auth",AuthRouter())
+    app:use("/upload",uploadRouter())
     
 end
 

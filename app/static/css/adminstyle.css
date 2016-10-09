@@ -11,8 +11,9 @@ table{border-collapse:collapse;border-spacing: 0;}
 cite{font-style:normal;}
 h2{font-weight:normal;}
 a {cursor: pointer;}
+
 /*#editor {overflow:scroll; max-height:300px;}*/
-#adEditor {   width: 100%; height: 400px;}
+#adEditor {   width: 100%; height: 500px;}
 .btn-1 {padding: 15px 10px;background: #02bbfe;color: #FFFFFF;}
 .btn-2 {padding: 2px 15px;background: #02bbfe;color: #FFFFFF;}
 .btn-3 {padding: 13px 39px;border:1px solid #a53300;background: #ffcd18;}
@@ -20,7 +21,8 @@ a {cursor: pointer;}
 .btn-new-ad{padding: 13px 39px;border:1px solid #a53300;background: #ffcd18;}
 .btn-preview-ad{padding: 13px 39px;border:1px solid #e8e8e8;background: #f8f8f8;}
 .red {color: red;font-size: 18px;}
-
+.notice1{color:red;}
+#ad_title{ opacity:1;margin-left:0px;height:30px;float:left;margin-top:5px;border:1px solid gray;width:500px;}
 /*top*/
 .top {height: 80px;background: #000;position: fixed;top: 0px;width: 100%;left: 0px;z-index: 9999999;}
 .top div {width: 1160px;margin: auto;}
