@@ -27,6 +27,13 @@ AdimPageRouter:get("/ad",function(req, res, next)
 	end)
 
 
+AdimPageRouter:get("/AdPreview",function(req, res, next)
+
+		res:render("admin_ad",{ title = category.first})
+
+	end)
+
+
 AdimPageRouter:get("/judo",function(req, res, next)
 
 		res:render("admin_judo",{ title = category.second})
