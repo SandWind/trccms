@@ -13,7 +13,8 @@ h2{font-weight:normal;}
 a {cursor: pointer;}
 
 /*#editor {overflow:scroll; max-height:300px;}*/
-#adEditor {   width: 100%; height: 500px;}
+#adEditor { overflow:scroll;  width: 100%; height: 700px;}
+#btn_upload {display: none;}
 .btn-1 {padding: 15px 10px;background: #02bbfe;color: #FFFFFF;}
 .btn-2 {padding: 2px 15px;background: #02bbfe;color: #FFFFFF;}
 .btn-3 {padding: 13px 39px;border:1px solid #a53300;background: #ffcd18;}

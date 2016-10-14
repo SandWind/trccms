@@ -55,7 +55,7 @@ return {
 	-- 上传文件配置，如上传的头像、文章中的图片等
 	upload_config = {
 		-- dir = "/data/openresty-china/static", -- 文件目录，修改此值时须同时修改nginx配置文件中的$static_files_path值
-		dir = "/Volumes/Dev/Project/TRC/trccms/data/static",
+		dir = "/Volumes/Dev/Project/TRC/trccms/data/static/ImgSource",
 	},	
 
 }

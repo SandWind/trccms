@@ -4,7 +4,6 @@ local uuid = require("app.libs.uuid.uuid")
 local sfind = string.find
 local match = string.match
 local ngx_var = ngx.var
-local decode_base64 = ngx.decode_base64
 
 
 
@@ -40,8 +39,12 @@ local function _multipart_formdata(config)
 			if res[1] == "Content-Disposition" then
 				key = match(res[2], "name=\"(.-)\"")
 				origin_filename = match(res[2], "filename=\"(.-)\"")
+				if origin_filename == nil then
+					origin_filename = match(res[2], "form-data; name=\"filename\"; filename=\"(.-)\"")
+				end
 			elseif res[1] == "Content-Type" then
 				filetype = res[2]
+				ngx.log(ngx.ERR, "origin_filename:", origin_filename..",","filetype:",filetype.."\n")
 			end
 
 			if origin_filename and filetype then
@@ -117,8 +120,7 @@ local function uploader(config)
 						req.file.extname = extname
 						req.file.path = path
 						req.file.filename = filename
-						-- req.file.url = ngx_var.host .."/static/files/"..filename
-						req.file.url = "/static/files/"..filename
+						req.file.url = "/static/images/"..filename
 					else
 						req.file = req.file or {}
 						req.file.success = false

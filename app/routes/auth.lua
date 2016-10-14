@@ -91,7 +91,7 @@ local auth_router = lor:Router()
 -- end)
 
 auth_router:post("/login", function(req, res, next)
-    ngx.log(ngx.ERR,"调用登录接口")
+    
 
     
     -- local username = req.body.username 

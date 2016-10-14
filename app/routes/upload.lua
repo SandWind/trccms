@@ -32,22 +32,29 @@ end)
 
 upload_router:post("/file", function(req, res, next)
     local file = req.file or {}
-    local userid = req.session.get("user").userid;
+    -- local userid = req.session.get("user").userid;
 
     if file.success and file.filename then 
-    	ngx.log(ngx.ERR, "用户:", userid, " 上传文件:", file.filename, " 成功")
+    	-- ngx.log(ngx.ERR, "用户:", userid, " 上传文件:", file.filename, " 成功")
         res:json({
         	success = true, 
 	        originFilename = file.origin_filename,
 	        filename = file.filename
 	    })
     else
-    	ngx.log(ngx.ERR, "用户:", userid, " 上传文件失败:", file.msg)
+    	-- ngx.log(ngx.ERR, "用户:", userid, " 上传文件失败:", file.msg)
 		res:json({
         	success = false, 
 	        msg = file.msg
 	    })
     end
+end)
+
+
+upload_router:post("/test", function(req, res, next)
+    local form = req.url or {}
+    
+    res:send("测试完毕")
 end)
 
 

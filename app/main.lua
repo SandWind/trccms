@@ -6,6 +6,7 @@ local view_config = config.view_config
 local upload_config = config.upload_config
 local app = lor()
 local uploader_middleware = require("app.middleware.uploader")
+local form_middleware   =  require("app.middleware.formdata")
 -- session和cookie支持，如果不需要可注释以下四行
 -- local middleware_cookie = require("lor.lib.middleware.cookie")
 local session_middleware = require("lor.lib.middleware.session")
@@ -28,9 +29,16 @@ app:use(session_middleware({
 }))
 
 
-app:use(uploader_middleware({
-	dir = upload_config.dir
+-- app:use(uploader_middleware({
+-- 	dir = upload_config.dir
+-- }))
+
+
+
+app:use(form_middleware({
+    dir = upload_config.dir
 }))
+
 
 -- app:use(check_login_middleware(whitelist))   --检查是否登录
 
