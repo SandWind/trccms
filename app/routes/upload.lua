@@ -52,7 +52,7 @@ end)
 
 
 upload_router:post("/test", function(req, res, next)
-    local form = req.url or {}
+    -- local url = req.url or {}
     
     res:send("测试完毕")
 end)

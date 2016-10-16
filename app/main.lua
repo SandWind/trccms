@@ -24,20 +24,21 @@ app:use(reponse_time_middleware({
     suffix = true
 }))
 
-app:use(session_middleware({
-    secret = config.session_secret -- 必须修改此值
-}))
-
-
--- app:use(uploader_middleware({
--- 	dir = upload_config.dir
+-- app:use(session_middleware({
+--     secret = config.session_secret -- 必须修改此值
 -- }))
 
 
-
-app:use(form_middleware({
-    dir = upload_config.dir
+app:use(uploader_middleware({
+	dir = upload_config.dir,
+    chunk_size = 8192
 }))
+
+
+
+-- app:use(form_middleware({
+--     dir = upload_config.dir
+-- }))
 
 
 -- app:use(check_login_middleware(whitelist))   --检查是否登录

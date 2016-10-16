@@ -12,6 +12,17 @@ local function getextension(filename)
 end
 
 
+local function get_filename(res)
+    local filename = ngx.re.match(res,'(.+)filename="(.+)"(.*)')
+    if filename then 
+    	 for k,v in pairs(filename) do
+    	   ngx.log(ngx.ERR, "filename[",k.."]=", v)
+    	 end
+        return filename[2]
+    end
+end
+
+
 local function _multipart_formdata(config)
 
 	local form, err = upload:new(config.chunk_size)
@@ -36,18 +47,30 @@ local function _multipart_formdata(config)
 		end
 
 		if typ == "header" then
-			if res[1] == "Content-Disposition" then
-				key = match(res[2], "name=\"(.-)\"")
-				origin_filename = match(res[2], "filename=\"(.-)\"")
-				if origin_filename == nil then
-					origin_filename = match(res[2], "form-data; name=\"filename\"; filename=\"(.-)\"")
-				end
-			elseif res[1] == "Content-Type" then
-				filetype = res[2]
-				ngx.log(ngx.ERR, "origin_filename:", origin_filename..",","filetype:",filetype.."\n")
+			-- if res[1] == "Content-Disposition" then
+			-- 	key = match(res[2], "name=\"(.-)\"")
+			-- 	origin_filename = match(res[2], "filename=\"(.-)\"")
+			-- elseif res[1] == "Content-Type" then
+			-- 	filetype = res[2]
+			-- 	ngx.log(ngx.ERR, "origin_filename:", origin_filename..",","filetype:",filetype.."\n")
+			-- end
+			for k,v in pairs(res) do
+				ngx.log(ngx.ERR, "res[",k.."]: ",v)
 			end
+			if res[1] ~= "Content-Type" then
+			   origin_filename = get_filename(res[2])
+			   -- if not origin_filename then
+			   -- 	  origin_filename = get_filename(res[1])
+			   -- end
+			else
+			   filetype = res[2]
+			   ngx.log(ngx.ERR, "filetype: ",filetype)
+			end 
 
-			if origin_filename and filetype then
+
+
+			-- if origin_filename and filetype then
+			if origin_filename then
 				if not extname then
 					extname = getextension(origin_filename)
 				end

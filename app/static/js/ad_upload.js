@@ -149,7 +149,7 @@
             swf: '/static/swf/Uploader.swf',
             chunked: true,
             chunkSize: 512 * 1024,
-            server: '/upload/test',
+            server: '/upload/img',
             // runtimeOrder: 'flash',
 
             accept: {
@@ -157,7 +157,7 @@
                 extensions: 'gif,jpg,jpeg,bmp,png',
                 mimeTypes: 'image/*'
             },
-
+            
             // 禁掉全局的拖拽功能。这样不会出现图片拖进页面的时候，把图片打开。
             disableGlobalDnd: false,
             fileNumLimit: 1,
