@@ -12,16 +12,6 @@ local function getextension(filename)
 end
 
 
-local function get_filename(res)
-    local filename = ngx.re.match(res,'(.+)filename="(.+)"(.*)')
-    if filename then 
-    	 for k,v in pairs(filename) do
-    	   ngx.log(ngx.ERR, "filename[",k.."]=", v)
-    	 end
-        return filename[2]
-    end
-end
-
 
 local function _multipart_formdata(config)
 
@@ -35,7 +25,12 @@ local function _multipart_formdata(config)
 
 	local unique_name = uuid()
 	local success, msg = false, ""
-	local file, origin_filename, filename, path, extname, err
+	local file,origin_filename, filename, path, extname, url,err
+	local prefix,suffix
+	local isFile =false
+	local params = {}
+	local paramKey, paramValue
+    
 	while true do
 		local typ, res, err = form:read()
 
@@ -46,32 +41,28 @@ local function _multipart_formdata(config)
 			return success, msg
 		end
 
+		if err then
+		   ngx.log(ngx.ERR, "read form err: ", err)
+		end
+
 		if typ == "header" then
-			-- if res[1] == "Content-Disposition" then
-			-- 	key = match(res[2], "name=\"(.-)\"")
-			-- 	origin_filename = match(res[2], "filename=\"(.-)\"")
-			-- elseif res[1] == "Content-Type" then
-			-- 	filetype = res[2]
-			-- 	ngx.log(ngx.ERR, "origin_filename:", origin_filename..",","filetype:",filetype.."\n")
-			-- end
-			for k,v in pairs(res) do
-				ngx.log(ngx.ERR, "res[",k.."]: ",v)
+			prefix,suffix = res[1],res[2]
+
+			if prefix == "Content-Disposition" then
+				paramKey = match(suffix, "name=\"(.-)\"")
+				origin_filename = match(suffix, "filename=\"(.-)\"")
+			elseif prefix == "Content-Type" then
+				filetype = suffix
 			end
-			if res[1] ~= "Content-Type" then
-			   origin_filename = get_filename(res[2])
-			   -- if not origin_filename then
-			   -- 	  origin_filename = get_filename(res[1])
-			   -- end
-			else
-			   filetype = res[2]
-			   ngx.log(ngx.ERR, "filetype: ",filetype)
-			end 
 
-
-
-			-- if origin_filename and filetype then
 			if origin_filename then
-				if not extname then
+				isFile = true
+			else
+				isFile = false
+			end
+
+			if isFile and origin_filename and filetype then
+			   if not extname then
 					extname = getextension(origin_filename)
 				end
 
@@ -95,28 +86,41 @@ local function _multipart_formdata(config)
 					return success, msg
 				end
 			end
-	
+
 		elseif typ == "body" then
-			if file then
-				file:write(res)
-				success = true
+
+		  if isFile then 
+		    if file then
+			   file:write(res)
+			   success = true
 			else
-				success = false
-				msg = "upload file error"
-				ngx.log(ngx.ERR, "upload file error, path:", path)
-				return success, msg
+			   success = false
+			   msg = "upload file error"
+			   ngx.log(ngx.ERR, "upload file error, path:", path)
+			   return success, msg
 			end
+		  else
+		  	success = true
+		    paramValue = res
+		  end
+			
 		elseif typ == "part_end" then
-            file:close()
-            file = nil
+		  if isFile then
+		     file:close()
+		     url = '/static/images/'..filename
+             file = nil
+             filename = nil
+             origin_filename = nil
+		  else
+		  	params[paramKey] = paramValue
+		  end 
+            
 		elseif typ == "eof" then
 			break
-		else
-			-- do nothing
 		end
 	end
 
-	return success, msg, origin_filename, extname, path, filename
+	return success, msg, url,params
 end
 
 
@@ -135,22 +139,23 @@ local function uploader(config)
 					config.chunk_size = config.chunk_size or 4096
 					config.recieve_timeout = config.recieve_timeout or 20000 -- 20s
 					
-					local success, msg, origin_filename, extname, path, filename = _multipart_formdata(config)
+					local success, msg, url,params= _multipart_formdata(config)
+
+       				-- for k,v in pairs(params) do
+          	-- 			ngx.log(ngx.ERR,"params[",k.."]:",v)
+       				-- end
+
+       				req.file = {}
+       				
 					if success then
-						req.file = req.file or {}
 						req.file.success = true
-						req.file.origin_filename = origin_filename
-						req.file.extname = extname
-						req.file.path = path
-						req.file.filename = filename
-						req.file.url = "/static/images/"..filename
+						req.file.url  = url 
+						req.params =  params or {}
 					else
-						req.file = req.file or {}
 						req.file.success = false
 						req.file.msg = msg
 					end
 					next()
-					
 				else
 					next()
 				end

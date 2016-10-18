@@ -48,7 +48,7 @@
                         support = false;
                     }
                 }
-                data.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+                // data.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
                 return support;
             } )(),
 
@@ -141,15 +141,17 @@
         uploader = WebUploader.create({
             pick: {
                 id: '#filePicker',
-                label: '点击选择图片'
+                label: '点击选择图片',
+                multiple: false
             },
             
             dnd: '#dndArea',
             paste: '#uploader',
-            swf: '/static/swf/Uploader.swf',
+            // swf: '/static/swf/Uploader.swf',
             chunked: true,
             chunkSize: 512 * 1024,
             server: '/upload/img',
+
             // runtimeOrder: 'flash',
 
             accept: {
@@ -160,7 +162,9 @@
             
             // 禁掉全局的拖拽功能。这样不会出现图片拖进页面的时候，把图片打开。
             disableGlobalDnd: false,
-            fileNumLimit: 1,
+            sendAsBinary:false,
+            runtimeOrder: 'html5',
+            fileNumLimit: 3,
             fileSizeLimit: 200 * 1024 * 1024,    // 200 M
             fileSingleSizeLimit: 50 * 1024 * 1024    // 50 M
         });
@@ -183,6 +187,8 @@
 
             return !denied;
         });
+
+      
 
         uploader.on('dialogOpen', function() {
             console.log('here');
@@ -542,8 +548,13 @@
         });
 
         uploader.onError = function( code ) {
-            alert( 'Eroor: ' + code );
+            if (code == 'Q_EXCEED_NUM_LIMIT')
+            {
+                code = '超出上传文件个数';
+            }
+            alert( '错误: ' + code );
         };
+
 
         $upload.on('click', function() {
             if ( $(this).hasClass( 'disabled' ) ) {
@@ -559,6 +570,10 @@
             }
         });
 
+
+       
+
+
         $info.on( 'click', '.retry', function() {
             uploader.retry();
         } );
@@ -569,6 +584,7 @@
 
         $upload.addClass( 'state-' + state );
         updateTotalProgress();
+
     });
 
 })( jQuery );
