@@ -23,12 +23,23 @@ function Ad_Model:query_by_uuid(uuid)
     end
 end
 
+function Ad_Model:delete_by_uuid(uuid)
+    local res,err
+    res,err = db:query("delete ad_topic topic where ad_uuid=?", {uuid})
+
+    if res and not err then
+        return true
+    else
+        return false
+    end
+end
+
 function Ad_Model:update_ad_topic_by_uuid(title,coverImage,content,uuid)
-	db:query("update ad_topic set title=?,coverImage=?,content=? where ad_uuid=?", {title,coverImage,content,uuid})
+	return db:query("update ad_topic set title=?,coverImage=?,content=? where ad_uuid=?", {title,coverImage,content,uuid})
 end
 
 
-function Ad_Modelget_total_count()
+function Ad_Model:get_total_count()
     local res,err
     res, err =  db:query("select count(id) as c from topic")
 
@@ -37,6 +48,13 @@ function Ad_Modelget_total_count()
     else
         return res[1].c
     end
+end
+
+function Ad_Model:get_all()
+    local res,err
+    -- body
+    res,err = db:query("select * from ad_topic")
+
 end
 
 
