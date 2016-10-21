@@ -105,6 +105,7 @@ local function _multipart_formdata(config)
 		  end
 			
 		elseif typ == "part_end" then
+		
 		  if isFile then
 		     file:close()
 		     url = '/static/images/'..filename
@@ -114,7 +115,7 @@ local function _multipart_formdata(config)
 		  else
 		  	params[paramKey] = paramValue
 		  end 
-            
+     
 		elseif typ == "eof" then
 			break
 		end
@@ -140,10 +141,6 @@ local function uploader(config)
 					config.recieve_timeout = config.recieve_timeout or 20000 -- 20s
 					
 					local success, msg, url,params= _multipart_formdata(config)
-
-       				-- for k,v in pairs(params) do
-          	-- 			ngx.log(ngx.ERR,"params[",k.."]:",v)
-       				-- end
 
        				req.file = {}
        				

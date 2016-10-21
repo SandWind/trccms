@@ -10,7 +10,7 @@ local category = {
 					fiveth = "有氧运动"
 }
 
-
+local preview_data = {}
 
 
 AdimPageRouter:get("/",function(req, res, next)
@@ -53,6 +53,33 @@ AdimPageRouter:get("/aerabic",function(req, res, next)
 		res:render("admin_aerabic",{  title = category.fiveth})
 
 	end)
+
+AdimPageRouter:post("/adpreview",function(req, res, next)
+		
+		preview_data = {} 
+		preview_data.title = req.body.title
+		preview_data.coverimg   =  req.body.coverimg
+		preview_data.content    = tostring(req.body.content)
+		-- for k,v in pairs(req.body) do
+		-- 	ngx.log(ngx.ERR,"body=[",k.."]:\n",v)
+		-- end
+		 res:json({
+            success = true
+        })
+	end)
+
+
+
+AdimPageRouter:get("/adpreview",function(req, res, next)
+
+		res:render("AdPreview",{title = preview_data.title,coverimg = preview_data.coverimg,content= preview_data.content })
+		
+		-- for k,v in pairs(req.body) do
+		-- 	ngx.log(ngx.ERR,"body=[",k.."]:\n",v)
+		-- end
+
+	end)
+
 
 
 return AdimPageRouter

@@ -1,14 +1,13 @@
 DROP TABLE IF EXISTS `ad_topic`;
 
+
 CREATE TABLE `ad_topic` (
   `ad_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(225) NOT NULL DEFAULT '',
-  `cover_img_name` varchar(225) NOT NULL DEFAULT '',
-  `cover_img_path` varchar(225) NOT NULL DEFAULT '',
-  `ad_context`	   varchar(225) NOT NULL DEFAULT '',
-  `ad_uuid`		   varchar(225) NOT NULL DEFAULT '',
-  `create_time`    timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `update_time`	   timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `coverimage` varchar(255) NOT NULL DEFAULT '',
+  `content`	   varchar(225) NOT NULL DEFAULT '',
+  `ad_uuid`    varchar(225) NOT NULL DEFAULT '',
+  `create_time`   timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`ad_id`),
   UNIQUE KEY `unique_ad_uuid` (`ad_uuid`)
 
@@ -29,7 +28,7 @@ CREATE TABLE `stadium_theme`
 	`img_path`           varchar(225) NOT NULL DEFAULT '',
 	`introduction`	     varchar(1000) NOT NULL DEFAULT '',
 	`pag_name`		     varchar(225) NOT NULL DEFAULT '',
-	PRIMARY KEY (`stadium_id`)
+	PRIMARY KEY (`stadium_id`),
 	UNIQUE KEY `unique_pag_name` (`pag_name`)
 	
 

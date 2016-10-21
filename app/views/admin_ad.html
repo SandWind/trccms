@@ -2,7 +2,7 @@
 <html>
 
 	<head>
-		{(ad_meta.html)}
+		{(ad_admin_meta.html)}
 	</head>
 
 	<body>
@@ -21,6 +21,14 @@
 				<span><a class="unactive" href="/admin/freepower">自由力量</a></span>
 				<span><a class="unactive" href="/admin/aerabic">有氧训练</a></span>
 			</div>
+
+			<div class="discr discrBox">
+				<p class="notic">
+					<span class="sup">i</span>
+					最多发布五条广告信息
+				</p>
+			</div>
+			
 			<div class="showpic3">
 				<div class="pic-box2">
 					<img class="showimg" src="/static/files/pic.png" />
@@ -42,7 +50,7 @@
 			<div class="discr discrBox">
 				<p class="notic">
 					<span class="sup">i</span>
-					最多发布五条广告信息
+					在选择要上传的封面图片请注意图片的宽高比应该是在3:1
 				</p>
 			</div>
 			
@@ -74,7 +82,7 @@
 			<div class="edit">
 					<label>广告标题<span class="red">*</span></label>
 					<div class="note">
-						<input type="text" id= "ad_title" placeholder="请输入标题一"/>
+						<input type="text" id="ad_title" placeholder="请输入标题" name="title">
 					</div>	
 
 			</div>
@@ -103,6 +111,8 @@
 			// 		$('#select_file_text').text('文件已选中');
 			// 		$('#btn_upload').show();
 			// });
+
+		    
 
 
 
@@ -155,38 +165,161 @@
 				})
 			});
 
+			function DataLength(fData) 
+			{ 
+    			var intLength=0; 
+    			for (var i=0;i<fData.length;i++) 
+    			{ 
+        			if ((fData.charCodeAt(i) < 0) || (fData.charCodeAt(i) > 255)) 
+            			intLength=intLength+2;
+        			else 
+            			intLength=intLength+1;
+    			} 
+    			return intLength;
+			} 
+
 
 			$('.btn-new-ad').on('click',function(){
-				alert('提交广告帖');
+				var imageUrl =  $().getImageUrl();
+				if(!imageUrl)
+				{
+					return;
+				}
+
+				var adtitle = $('#ad_title').val();
+				
+				if (!adtitle) 
+				{
+					alert("请输入广告标题");
+					return;
+				}
+				else
+				{
+
+					if (adtitle.length > 50)
+					{
+						alert('广告标题超出50个字');
+						return;
+					}
+				}
+
+				var content = editor.$txt.html();
+				
+				if (DataLength(content)< 20) 
+				{
+					alert("请完善广告内容");
+					return;
+				}
+				else
+				{
+					console.log(DataLength(content))
+
+					if(DataLength(content) >= 4000)
+					{
+						alert("内容已经超出4000个字!");
+						return;
+					}
+	
+				}
+				
+				$.ajax({
+                		url : '/admin/newadpost',
+                		type : 'post',
+                		data : {
+                    			 title: adtitle,
+                    			 coverimg: imageUrl._raw,
+                    			 content: content
+                			   },
+                	    dataType : 'json',
+                		success : function(result) {
+                			if(result.success)
+                			{
+                				window.open("/admin/adpreview");
+                			}
+                			else
+                			{
+                				alert("预览出现错误");
+                			}
+                    						
+                						},
+                	    error : function() {
+                    						  alert("预览出现错误");
+                                    }
+			    });
+
 			});
 
 
 			$('.btn-preview-ad').on('click',function(){
+
+
+
+				var imageUrl =  $().getImageUrl();
+				if(!imageUrl)
+				{
+					return;
+				}
+
+				var adtitle = $('#ad_title').val();
+				
+				if (!adtitle) 
+				{
+					alert("请输入广告标题");
+					return;
+				}
+				else
+				{
+
+					if (adtitle.length > 50)
+					{
+						alert('广告标题超出50个字');
+						return;
+					}
+				}
+
+				var content = editor.$txt.html();
+				console.log(content);
+				
+				if (DataLength(content)< 20) 
+				{
+					alert("请完善广告内容");
+					return;
+				}
+				else
+				{
+					// parseInt(DataLength(content))>parseInt(4000)
+					// {
+					// 	alert("内容已经超出4000个字!");
+					// 	return;
+					// }
+	
+					console.log(DataLength(content)) 
+				}
 				
 				$.ajax({
-                		url : '/admin/AdPreview',
+                		url : '/admin/adpreview',
                 		type : 'post',
                 		data : {
-                    			title: title,
-                    			category_id: category_id,
-                    			content: content
+                    			 title: adtitle,
+                    			 coverimg: imageUrl._raw,
+                    			 content: content
                 			   },
-                			dataType : 'json',
-                			success : function(result) {
-                    						if(result.success)
-                    						{
-                        					  // window.location.href="/topic/"+result.data.id+"/view";
-                        					  window.open("/topic/"+result.data.id+"/view");
-                    						}
-                    						else
-                    						{
-                        					  alert(result.msg);
-                    						}
+                	    dataType : 'json',
+                		success : function(result) {
+                			if(result.success)
+                			{
+                				window.open("/admin/adpreview");
+                			}
+                			else
+                			{
+                				alert("预览出现错误");
+                			}
+                    						
                 						},
-                	        error : function() {
-                    						  alert("预览出现异常");
+                	    error : function() {
+                    						  alert("预览出现错误");
                                     }
-			          });
+			    });
 			});
 			
 							

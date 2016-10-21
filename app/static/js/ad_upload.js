@@ -142,7 +142,7 @@
             pick: {
                 id: '#filePicker',
                 label: '点击选择图片',
-                multiple: false
+                multiple: true
             },
             
             dnd: '#dndArea',
@@ -164,7 +164,7 @@
             disableGlobalDnd: false,
             sendAsBinary:false,
             runtimeOrder: 'html5',
-            fileNumLimit: 3,
+            fileNumLimit: 5,
             fileSizeLimit: 200 * 1024 * 1024,    // 200 M
             fileSingleSizeLimit: 50 * 1024 * 1024    // 50 M
         });
@@ -481,7 +481,7 @@
                 case 'finish':
                     stats = uploader.getStats();
                     if ( stats.successNum ) {
-                        alert( '上传成功' );
+                        // alert( '上传成功' );
                     } else {
                         // 没有成功的图片，重设
                         state = 'done';
@@ -552,6 +552,10 @@
             {
                 code = '超出上传文件个数';
             }
+            if(code == 'F_DUPLICATE')
+            {
+                code = '选中重复内容了';
+            }
             alert( '错误: ' + code );
         };
 
@@ -584,6 +588,33 @@
 
         $upload.addClass( 'state-' + state );
         updateTotalProgress();
+
+        
+
+        var imageUrl =null;
+        uploader.on( 'uploadAccept', function( file, response ) {
+            
+            if (response != 'undefined') 
+            {
+                imageUrl =response;
+            };
+        });
+
+        $.fn.getImageUrl = function() {
+
+             // 插件的具体内容放在这里
+            if (imageUrl) 
+            {
+                return imageUrl;
+            }
+            else
+            {
+                alert('请上传封面照片');
+            }
+
+
+       };
+
 
     });
 

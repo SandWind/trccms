@@ -7,10 +7,10 @@ local upload_router = lor:Router()
 
 upload_router:post("/test", function(req, res, next)
 
-    -- ngx.req.read_body()
+    ngx.req.read_body()
     
-    -- local data = ngx.req.get_body_data()
-    -- ngx.log(ngx.ERR," data:\n", data)
+    local data = ngx.req.get_body_data()
+    ngx.log(ngx.ERR," data:\n", data)
 
     res:send("测试完毕")
 end)
