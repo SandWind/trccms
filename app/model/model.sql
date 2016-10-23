@@ -5,7 +5,7 @@ CREATE TABLE `ad_topic` (
   `ad_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(225) NOT NULL DEFAULT '',
   `coverimage` varchar(255) NOT NULL DEFAULT '',
-  `content`	   varchar(225) NOT NULL DEFAULT '',
+  `content`	   varchar(4000) NOT NULL DEFAULT '',
   `ad_uuid`    varchar(225) NOT NULL DEFAULT '',
   `create_time`   timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`ad_id`),

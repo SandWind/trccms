@@ -1,5 +1,6 @@
 local lor = require("lor.index")
 local AdimPageRouter = lor:Router()
+local Admodel= require("app.model.ad_model")
 
 
 local category = {
@@ -21,8 +22,16 @@ AdimPageRouter:get("/",function(req, res, next)
 
 
 AdimPageRouter:get("/ad",function(req, res, next)
-
-		res:render("admin_ad",{ title = category.first})
+		
+		local adcount = Admodel:get_total_count()
+		
+		local adtopics = Admodel:get_all()
+		
+		res:render("admin_ad",{ 
+			title = category.first,
+			adcount = adcount,
+		    adtopics = adtopics
+			})
 
 	end)
 
@@ -60,9 +69,7 @@ AdimPageRouter:post("/adpreview",function(req, res, next)
 		preview_data.title = req.body.title
 		preview_data.coverimg   =  req.body.coverimg
 		preview_data.content    = tostring(req.body.content)
-		-- for k,v in pairs(req.body) do
-		-- 	ngx.log(ngx.ERR,"body=[",k.."]:\n",v)
-		-- end
+		
 		 res:json({
             success = true
         })

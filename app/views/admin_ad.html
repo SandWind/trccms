@@ -30,7 +30,7 @@
 			</div>
 			
 			<div class="showpic3">
-				<div class="pic-box2">
+				<!-- <div class="pic-box2">
 					<img class="showimg" src="/static/files/pic.png" />
 					<p class="discr1">测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试</p>
 					<img class="del" src="/static/files/del.png" />
@@ -44,7 +44,7 @@
 					<img class="showimg" src="/static/files/pic.png" />
 					<p class="discr1">测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试</p>
 					<img class="del" src="/static/files/del.png" />
-				</div>
+				</div> -->
 			</div>
 			
 			<div class="discr discrBox">
@@ -179,6 +179,72 @@
 			} 
 
 
+			function isOverflow()
+			{
+				var isFive = false;
+				$.ajax({
+					     url:'/adtopic/count',
+					     type:'get',
+					     async: false,
+					     dataType : 'json',
+                		 success : function(result) {
+                			if(result.success)
+                			{
+                				if(result.ad_count >= 5)
+                				{
+                					alert("已经超过最大广告贴个数了");
+                					isFive = true;
+                				}
+                				else
+                				{
+                					isFive = false;
+                				}
+                			}
+                			else
+                			{
+                				isFive = true;
+                			}
+                    						
+                						},
+                	    error : function() {
+                    						  alert("查询帖子个数出错");
+                    						  isFive = true;
+                                    }
+				});
+				return isFive;
+			}
+
+
+			function SaveTopic(imageUrl,adtitle,content)
+			{
+				$.ajax({
+					     url:'/adtopic/new',
+					     type:'post',
+					     async: true,
+					     data : {
+                    			 title: adtitle,
+                    			 coverimg: imageUrl._raw,
+                    			 content: content
+                			   },
+					     dataType : 'json',
+                		 success : function(result) {
+                			if(result.success)
+                			{
+                				alert("查询帖子保存成功");
+                			}
+                			else
+                			{
+                				alert("查询帖子保存出错");
+                			}
+                    						
+                						},
+                	    error : function() {
+                    						  alert("查询帖子保存出现异常");
+                    						 
+                                    }
+                        });
+			}
+
 			$('.btn-new-ad').on('click',function(){
 				var imageUrl =  $().getImageUrl();
 				if(!imageUrl)
@@ -222,30 +288,11 @@
 	
 				}
 				
-				$.ajax({
-                		url : '/admin/newadpost',
-                		type : 'post',
-                		data : {
-                    			 title: adtitle,
-                    			 coverimg: imageUrl._raw,
-                    			 content: content
-                			   },
-                	    dataType : 'json',
-                		success : function(result) {
-                			if(result.success)
-                			{
-                				window.open("/admin/adpreview");
-                			}
-                			else
-                			{
-                				alert("预览出现错误");
-                			}
-                    						
-                						},
-                	    error : function() {
-                    						  alert("预览出现错误");
-                                    }
-			    });
+				if(!isOverflow())
+				{
+					SaveTopic(imageUrl,adtitle,content)
+				}
+
 
 			});
 
@@ -287,13 +334,11 @@
 				}
 				else
 				{
-					// parseInt(DataLength(content))>parseInt(4000)
-					// {
-					// 	alert("内容已经超出4000个字!");
-					// 	return;
-					// }
-	
-					console.log(DataLength(content)) 
+					if(DataLength(content) >= 4000)
+					{
+						alert("内容已经超出4000个字!");
+						return;
+					}
 				}
 				
 				$.ajax({

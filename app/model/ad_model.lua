@@ -9,8 +9,8 @@ local  Ad_Model = {}
 function Ad_Model:new(title,coverImage,content)
 	local unique_number = uuid();
     local creat_time = utils.now()
-	return  db:query("insert into ad_topic(title, coverImage, content,ad_uuid,creat_time) values(?,?,?,?,?)",
-            {title,coverImage,context,unique_number,creat_time})
+	return  db:query("insert into ad_topic(title, coverimage, content,ad_uuid,create_time) values(?,?,?,?,?)",
+            {title,coverImage,content,unique_number,creat_time})
 
 end
 
@@ -35,13 +35,13 @@ function Ad_Model:delete_by_uuid(uuid)
 end
 
 function Ad_Model:update_ad_topic_by_uuid(title,coverImage,content,uuid)
-	return db:query("update ad_topic set title=?,coverImage=?,content=? where ad_uuid=?", {title,coverImage,content,uuid})
+	return db:query("update ad_topic set title=?,coverimage=?,content=? where ad_uuid=?", {title,coverImage,content,uuid})
 end
 
 
 function Ad_Model:get_total_count()
     local res,err
-    res, err =  db:query("select count(id) as c from topic")
+    res, err =  db:query("select count(ad_id) as c from ad_topic")
 
     if err or not res or #res~=1 or not res[1].c then
         return 0
@@ -55,6 +55,36 @@ function Ad_Model:get_all()
     -- body
     res,err = db:query("select * from ad_topic")
 
+    if not res or err or type(res) ~= "table" or #res <= 0 then
+        return {}
+    else
+        return res
+    end
+end
+
+
+function Ad_Model:get_all_uuid()
+    local res,err
+    -- body
+    res,err = db:query("select ad_uuid from ad_topic")
+
+    if not res or err or type(res) ~= "table" or #res <= 0 then
+        return {}
+    else
+        return res
+    end
+end
+
+function Ad_Model:get_all_sample()
+    local res,err
+    -- body
+    res,err = db:query("select title,coverimage from ad_topic")
+
+    if not res or err or type(res) ~= "table" or #res <= 0 then
+        return {}
+    else
+        return res
+    end
 end
 
 
