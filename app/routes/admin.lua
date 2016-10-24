@@ -23,14 +23,11 @@ AdimPageRouter:get("/",function(req, res, next)
 
 AdimPageRouter:get("/ad",function(req, res, next)
 		
-		local adcount = Admodel:get_total_count()
-		
-		local adtopics = Admodel:get_all()
+		local adtopics_sample = Admodel:get_all_sample()
 		
 		res:render("admin_ad",{ 
 			title = category.first,
-			adcount = adcount,
-		    adtopics = adtopics
+			samlpes = adtopics_sample
 			})
 
 	end)

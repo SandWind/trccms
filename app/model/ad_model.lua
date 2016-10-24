@@ -25,7 +25,7 @@ end
 
 function Ad_Model:delete_by_uuid(uuid)
     local res,err
-    res,err = db:query("delete ad_topic topic where ad_uuid=?", {uuid})
+    res,err = db:query("delete from ad_topic where ad_uuid=?", {uuid})
 
     if res and not err then
         return true
@@ -78,7 +78,7 @@ end
 function Ad_Model:get_all_sample()
     local res,err
     -- body
-    res,err = db:query("select title,coverimage from ad_topic")
+    res,err = db:query("select title,coverimage,ad_uuid from ad_topic")
 
     if not res or err or type(res) ~= "table" or #res <= 0 then
         return {}

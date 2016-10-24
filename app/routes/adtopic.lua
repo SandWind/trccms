@@ -47,6 +47,24 @@ AdtopicRouter:get("/:ad_uuid/detail", function(req, res, next)
 	end)
 
 
+AdtopicRouter:post("/:ad_uuid/delete", function(req, res, next)
+    local uuid = req.params.ad_uuid
+    local isDel = Admodel:delete_by_uuid(uuid)
+
+    if isDel then
+       res:json({
+                success = true
+            })  
+    else
+      res:json({
+                success = false
+            })  
+    end
+
+
+    end)
+
+
 
 
 return AdtopicRouter

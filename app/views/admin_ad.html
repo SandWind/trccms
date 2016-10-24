@@ -30,21 +30,13 @@
 			</div>
 			
 			<div class="showpic3">
-				<!-- <div class="pic-box2">
-					<img class="showimg" src="/static/files/pic.png" />
-					<p class="discr1">测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试</p>
-					<img class="del" src="/static/files/del.png" />
-				</div>
-				<div class="pic-box2">
-					<img class="showimg" src="/static/files/pic.png" />
-					<p class="discr1">测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试</p>
-					<img class="del" src="/static/files/del.png" />
-				</div>
-				<div class="pic-box2">
-					<img class="showimg" src="/static/files/pic.png" />
-					<p class="discr1">测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试</p>
-					<img class="del" src="/static/files/del.png" />
-				</div> -->
+				{%for _,v in pairs(samlpes) do %}
+					<div class="pic-box2" data-uuid = "{{v.ad_uuid}}">
+						<img class="showimg" src="{{v.coverimage}}" />
+						<p class="discr1">{{v.title}}</p>
+						<img class="del" src="/static/files/del.png" />
+					</div>
+				{%end%}
 			</div>
 			
 			<div class="discr discrBox">
@@ -106,16 +98,6 @@
 		
 		<script>
 			
-			// $('#fileupload').change(function(){
-				
-			// 		$('#select_file_text').text('文件已选中');
-			// 		$('#btn_upload').show();
-			// });
-
-		    
-
-
-
 			var editor = new wangEditor('adEditor');
 			editor.config.uploadImgUrl = '/upload/img';
 
@@ -149,7 +131,40 @@
        	    editor.config.hideLinkImg = true;
 
     		editor.create();
-    		
+    		function del_adtopic(uuid)
+    		{
+    			var isDel = false;
+    			var del_url =  '/adtopic/'+uuid+'/delete';
+    			$.ajax({
+
+    				 url:del_url,
+					     type:'post',
+					     async: false,
+					     dataType : 'json',
+					     success : function(result) {
+					     		if(result)
+					     		{
+					     			isDel = true;
+					     		}
+					     		else
+					     		{
+					     			isDel = false;
+					     			alert("删除帖子失败");
+					     		}
+
+					     },
+
+					     error : function() {
+					     		isDel = false;
+					     		alert("删除帖子异常");
+
+					     }
+
+
+    			});
+
+    			return isDel;
+    		}
 		 	$(document).ready(function(){
 				$('.discr1').each(function(){
 				var maxwidth=35;
@@ -161,7 +176,14 @@
 				});
 				$('img.del').on('click',function(){
 // ·					$(this).parent('div').css('display','none');
-					$(this).parent('div').hide();
+					
+					var topic_uuid = $(this).parent('div').attr("data-uuid");
+					if(del_adtopic(topic_uuid))
+					{
+						$(this).parent('div').hide();
+					}
+					
+
 				})
 			});
 

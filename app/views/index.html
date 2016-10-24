@@ -18,7 +18,14 @@
       </section>
       <section class="banner swiper-container"> 
         <div class="swiper-wrapper">
+        {%for _,v in pairs(samples) do %}
           <div class="swiper-slide lunbo">
+                <a href="/adtopic/{{v.ad_uuid}}/detail"><img src="{{v.coverimage}}" /></a>
+                <p>{{v.title}}</p>
+          </div>
+        {%end%}
+
+          <!-- <div class="swiper-slide lunbo">
                 <a href=""><img src="/static/files/banner.jpg" /></a>
                 <p>明天怎么玩啊明天怎么玩啊明天怎么玩啊明天怎么玩啊</p>
           </div>
@@ -26,7 +33,7 @@
                 <img src="/static/files/banner.jpg" />
                 <p>单身狗收到了打击单身狗收到了打击单身狗收到了打击单身狗收到了打击单身狗收到了打击</p>
           </div>
-          <div class="swiper-slide lunbo"><img src="/static/files/banner.jpg" /><p>你们想好没啊你们想好没啊你们想好没啊你们想好没啊你们想好没啊你们想好没啊你们想好没啊你们想好没啊</p></div>
+          <div class="swiper-slide lunbo"><img src="/static/files/banner.jpg" /><p>你们想好没啊你们想好没啊你们想好没啊你们想好没啊你们想好没啊你们想好没啊你们想好没啊你们想好没啊</p></div> -->
         </div>
         <div class="pagination"></div>
       </section>
