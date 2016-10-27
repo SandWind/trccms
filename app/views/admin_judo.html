@@ -4,8 +4,6 @@
 	<head>
 		{(admin_meta.html)}
 	</head>
-
-	<body>
 		
 <body>
 		<div class="top">
@@ -15,7 +13,7 @@
 			</div>
 		</div>
 
-		<div class="container">
+		<div class="container" data-pagename="{{pagename}}">
 			<div class="nav">
 				<span><a class="unactive" href="/admin/ad">首页广告</a></span>
 				<span><a class="active" href="/admin/judo">柔道</a></span>
@@ -24,363 +22,136 @@
 				<span><a class="unactive" href="/admin/aerabic">有氧训练</a></span>
 			</div>
 
-			<p class="title">二级页面展示图//</p>
+			<div class="discr roudao">
+				<p class="title">封面广告图</p>
+				<div class="showpic3">
+				    {%for _,v in pairs(covers) do %}
+					   <div class="pic-box2" data-uuid = "{{v.cover_id}}" style="position:relative">
+						   <img class="showing" src="{{v.cover_img}}" />
+						   <img class="del" src="/static/files/del.png" style="position:absolute;right:10px;bottom:0px" onclick="DelImage(this)"/>
+					   </div>
+				    {%end%}
+			    </div>
+			   
+				<div class ="wrapper">
+        		  <div class ="uploader_container">
+            		<div class= "uploader" id="cover_uploader">
+                		<div class="queueList">
+                    		<div id="cover_dndArea" class="placeholder">
+                        		<div id="cover_filePicker" ></div>
+                        		<p id="cover_uploader_count">或将照片拖到这里，封面照片最多可选4张</p>
+                    		</div>
+                		</div>
+                		<div class="statusBar" style="display:none;">
+                    		<div class="progress">
+                        		<span class="text">0%</span>
+                        		<span class="percentage"></span>
+                    		</div>
+                    		<div class="info"></div>
+                    		<div class="btns">
+                        		<div id="cover_filePicker2"></div><div class="uploadBtn">开始上传</div>
+                    		</div>
+                		</div>
+            		</div>
+            	  </div>
+    		    </div>
+    		   
 
-			<div class="showpic">
-				<div class="pic-box">
-					<div class="pic-show">
-						<img src="img/pic.png" />
-					</div>
-					<div class="pic-btn">
-						<span class="btn-1">选择图片</span>
-						<input type="file" />
-					</div>
-				</div>
-				<div class="pic-box">
-					<div class="pic-show">
-						<img src="img/pic.png" />
-					</div>
-					<div class="pic-btn">
-						<span class="btn-1">选择图片</span>
-						<input type="file" />
-					</div>
-				</div>
-				<div class="pic-box">
-					<div class="pic-show">
-						<img src="img/pic.png" />
-					</div>
-					<div class="pic-btn">
-						<span class="btn-1">选择图片</span>
-						<input type="file" />
-					</div>
-				</div>
-				<div class="pic-box">
-					<div class="pic-show">
-						<img src="img/pic.png" />
-					</div>
-					<div class="pic-btn">
-						<span class="btn-1">选择图片</span>
-						<input type="file" />
-					</div>
-				</div>
-				<div class="pic-box">
-					<div class="pic-show">
-						<img src="img/pic.png" />
-					</div>
-					<div class="pic-btn">
-						<span class="btn-1">选择图片</span>
-						<input type="file" />
-					</div>
-				</div>
-			</div>
 			<!--柔道介绍-->
 			<div class="discr roudao">
-				<p class="title">柔道介绍//</p>
-				<div class="showpic1">
-					<div class="pic-box1" style="margin-left: 0px;">
-						<div class="pic-show">
-							<img src="img/pic.png" />
-						</div>
-						<div class="pic-btn">
-							<span class="btn-2">选择图片</span>
-							<input type="file" />
-						</div>
-					</div>
-					<div class="pic-box1">
-						<div class="pic-show">
-							<img src="img/pic.png" />
-						</div>
-						<div class="pic-btn">
-							<span class="btn-2">选择图片</span>
-							<input type="file" />
-						</div>
-					</div>
-					<div class="pic-box1">
-						<div class="pic-show">
-							<img src="img/pic.png" />
-						</div>
-						<div class="pic-btn">
-							<span class="btn-2">选择图片</span>
-							<input type="file" />
-						</div>
-					</div>
-					<div class="pic-box1">
-						<div class="pic-show">
-							<img src="img/pic.png" />
-						</div>
-						<div class="pic-btn">
-							<span class="btn-2">选择图片</span>
-							<input type="file" />
-						</div>
-					</div>
-				</div>
-				<div class="edit">
+			   <p class="title">柔道场馆介绍</p>
+
+			   <div class ="wrapper">
+        		   <div class ="uploader_container">
+            	<!--头部，相册选择和格式选择-->
+            		  <div class= "uploader" id="gymnasium_uploader">
+                		 <div class="queueList">
+                    		<div id="gymnasium_dndArea" class="placeholder">
+                        		<div id="gymnasium_filePicker" ></div>
+                        		<p>或将照片拖到这里，场地照片最多可选6张</p>
+                    		</div>
+                		 </div>
+                		 <div class="statusBar" style="display:none;">
+                    		<div class="progress">
+                        		<span class="text">0%</span>
+                        		<span class="percentage"></span>
+                    		</div>
+                    		<div class="info"></div>
+                    		<div class="btns">
+                        		<div id="gymnasium_filePicker2" ></div><div class="uploadBtn">开始上传</div>
+                    		</div>
+                		 </div>
+            		 </div>
+            	  </div>
+    	 	   </div>
+
+
+			   <div class="edit">
 					<label>文章内容<span class="red">*</span></label>
-					<div class="editBox">
-						<div class="btn-toolbar" data-role="editor-toolbar" data-target="#editor">
-							<div class="btn-group">
-								<a class="btn dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Font"><i class="icon-font"></i><b class="caret"></b></a>
-								<ul class="dropdown-menu">
-									<li>
-										<a data-edit="fontName Serif" style="font-family:'Serif'">Serif</a>
-									</li>
-									<li>
-										<a data-edit="fontName Sans" style="font-family:'Sans'">Sans</a>
-									</li>
-									<li>
-										<a data-edit="fontName Arial" style="font-family:'Arial'">Arial</a>
-									</li>
-									<li>
-										<a data-edit="fontName Arial Black" style="font-family:'Arial Black'">Arial Black</a>
-									</li>
-									<li>
-										<a data-edit="fontName Courier" style="font-family:'Courier'">Courier</a>
-									</li>
-									<li>
-										<a data-edit="fontName Courier New" style="font-family:'Courier New'">Courier New</a>
-									</li>
-									<li>
-										<a data-edit="fontName Comic Sans MS" style="font-family:'Comic Sans MS'">Comic Sans MS</a>
-									</li>
-									<li>
-										<a data-edit="fontName Helvetica" style="font-family:'Helvetica'">Helvetica</a>
-									</li>
-									<li>
-										<a data-edit="fontName Impact" style="font-family:'Impact'">Impact</a>
-									</li>
-									<li>
-										<a data-edit="fontName Lucida Grande" style="font-family:'Lucida Grande'">Lucida Grande</a>
-									</li>
-									<li>
-										<a data-edit="fontName Lucida Sans" style="font-family:'Lucida Sans'">Lucida Sans</a>
-									</li>
-									<li>
-										<a data-edit="fontName Tahoma" style="font-family:'Tahoma'">Tahoma</a>
-									</li>
-									<li>
-										<a data-edit="fontName Times" style="font-family:'Times'">Times</a>
-									</li>
-									<li>
-										<a data-edit="fontName Times New Roman" style="font-family:'Times New Roman'">Times New Roman</a>
-									</li>
-									<li>
-										<a data-edit="fontName Verdana" style="font-family:'Verdana'">Verdana</a>
-									</li>
-								</ul>
-							</div>
-							<div class="btn-group">
-								<a class="btn dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Font Size"><i class="icon-text-height"></i>&nbsp;<b class="caret"></b></a>
-								<ul class="dropdown-menu">
-									<li>
-										<a data-edit="fontSize 5">
-											<font size="5">Huge</font>
-										</a>
-									</li>
-									<li>
-										<a data-edit="fontSize 3">
-											<font size="3">Normal</font>
-										</a>
-									</li>
-									<li>
-										<a data-edit="fontSize 1">
-											<font size="1">Small</font>
-										</a>
-									</li>
-								</ul>
-							</div>
-							<div class="btn-group">
-								<a class="btn btn-info" data-edit="bold" title="" data-original-title="Bold (Ctrl/Cmd+B)"><i class="icon-bold"></i></a>
-								<a class="btn" data-edit="italic" title="" data-original-title="Italic (Ctrl/Cmd+I)"><i class="icon-italic"></i></a>
-								<a class="btn" data-edit="strikethrough" title="" data-original-title="Strikethrough"><i class="icon-strikethrough"></i></a>
-								<a class="btn" data-edit="underline" title="" data-original-title="Underline (Ctrl/Cmd+U)"><i class="icon-underline"></i></a>
-							</div>
-							<div class="btn-group">
-								<a class="btn" data-edit="insertunorderedlist" title="" data-original-title="Bullet list"><i class="icon-list-ul"></i></a>
-								<a class="btn" data-edit="insertorderedlist" title="" data-original-title="Number list"><i class="icon-list-ol"></i></a>
-								<a class="btn" data-edit="outdent" title="" data-original-title="Reduce indent (Shift+Tab)"><i class="icon-indent-left"></i></a>
-								<a class="btn" data-edit="indent" title="" data-original-title="Indent (Tab)"><i class="icon-indent-right"></i></a>
-							</div>
-							<div class="btn-group">
-								<a class="btn btn-info" data-edit="justifyleft" title="" data-original-title="Align Left (Ctrl/Cmd+L)"><i class="icon-align-left"></i></a>
-								<a class="btn" data-edit="justifycenter" title="" data-original-title="Center (Ctrl/Cmd+E)"><i class="icon-align-center"></i></a>
-								<a class="btn" data-edit="justifyright" title="" data-original-title="Align Right (Ctrl/Cmd+R)"><i class="icon-align-right"></i></a>
-								<a class="btn" data-edit="justifyfull" title="" data-original-title="Justify (Ctrl/Cmd+J)"><i class="icon-align-justify"></i></a>
-							</div>
-							<div class="btn-group">
-								<a class="btn dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Hyperlink"><i class="icon-link"></i></a>
-								<div class="dropdown-menu input-append">
-									<input class="span2" placeholder="URL" type="text" data-edit="createLink">
-									<button class="btn" type="button">Add</button>
-								</div>
-								<a class="btn" data-edit="unlink" title="" data-original-title="Remove Hyperlink"><i class="icon-cut"></i></a>
-	
-							</div>
-	
-							<div class="btn-group">
-								<a class="btn" title="" id="pictureBtn" data-original-title="Insert picture (or just drag &amp; drop)"><i class="icon-picture"></i></a>
-								<input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage" style="opacity: 0; position: absolute; top: 0px; left: 0px; width: 41px; height: 30px;">
-							</div>
-							<div class="btn-group">
-								<a class="btn" data-edit="undo" title="" data-original-title="Undo (Ctrl/Cmd+Z)"><i class="icon-undo"></i></a>
-								<a class="btn" data-edit="redo" title="" data-original-title="Redo (Ctrl/Cmd+Y)"><i class="icon-repeat"></i></a>
-							</div>
-							<input type="text" data-edit="inserttext" id="voiceBtn" x-webkit-speech="" style="display: none;">
-						</div>
-					
-						<div id="editor" contenteditable="true">
-							<blockquote style="margin: 0 0 0 40px; border: none; padding: 0px;"><span style="color: inherit; text-align: justify;">Go ahead…</span></blockquote>
+					<div class="editBox" style="width:85%">
+						<div id="groundEditor">
+							<p>请输入文字内容</p>
 						</div>
 						
 						<div class="saveBox">
-							<span class="btn-3">确认</span>
-							<span class="btn-4">撤销</span>
+							<span class="btn-new-ad">确认</span>
 						</div>
 					</div>
 				</div>
-			</div>
+    		</div>
+				
+			
 			<!--教练介绍-->
 			<div class="discr roudao">
-				<p class="title">教练介绍//</p>
-				<div class="showpic1">
-					<div class="pic-box1" style="margin-left: 0px;">
-						<div class="pic-show">
-							<img src="img/pic.png" />
-						</div>
-						<div class="pic-btn">
-							<span class="btn-2">选择图片</span>
-							<input type="file" />
-						</div>
-					</div>
-				</div>
+				<p class="title">柔道教练介绍</p>
+				
+				<div class ="wrapper">
+        		   <div class ="uploader_container">
+            	<!--头部，相册选择和格式选择-->
+            		  <div class= "uploader" id="trainner_uploader">
+                		 <div class="queueList">
+                    		<div id="trainner_dndArea" class="placeholder">
+                        		<div id="trainner_filePicker" ></div>
+                        		<p>或将照片拖到这里，教练照片最多可选1张</p>
+                    		</div>
+                		 </div>
+                		 <div class="statusBar" style="display:none;">
+                    		<div class="progress">
+                        		<span class="text">0%</span>
+                        		<span class="percentage"></span>
+                    		</div>
+                    		<div class="info"></div>
+                    		<div class="btns">
+                        		<div id="trainner_filePicker2" ></div><div class="uploadBtn">开始上传</div>
+                    		</div>
+                		 </div>
+            		 </div>
+            	  </div>
+    	 	   </div>
+
+
+
 				<div class="edit">
 					<label>文章内容<span class="red">*</span></label>
-					<div class="editBox">
-						<div class="btn-toolbar" data-role="editor-toolbar" data-target="#editor">
-							<div class="btn-group">
-								<a class="btn dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Font"><i class="icon-font"></i><b class="caret"></b></a>
-								<ul class="dropdown-menu">
-									<li>
-										<a data-edit="fontName Serif" style="font-family:'Serif'">Serif</a>
-									</li>
-									<li>
-										<a data-edit="fontName Sans" style="font-family:'Sans'">Sans</a>
-									</li>
-									<li>
-										<a data-edit="fontName Arial" style="font-family:'Arial'">Arial</a>
-									</li>
-									<li>
-										<a data-edit="fontName Arial Black" style="font-family:'Arial Black'">Arial Black</a>
-									</li>
-									<li>
-										<a data-edit="fontName Courier" style="font-family:'Courier'">Courier</a>
-									</li>
-									<li>
-										<a data-edit="fontName Courier New" style="font-family:'Courier New'">Courier New</a>
-									</li>
-									<li>
-										<a data-edit="fontName Comic Sans MS" style="font-family:'Comic Sans MS'">Comic Sans MS</a>
-									</li>
-									<li>
-										<a data-edit="fontName Helvetica" style="font-family:'Helvetica'">Helvetica</a>
-									</li>
-									<li>
-										<a data-edit="fontName Impact" style="font-family:'Impact'">Impact</a>
-									</li>
-									<li>
-										<a data-edit="fontName Lucida Grande" style="font-family:'Lucida Grande'">Lucida Grande</a>
-									</li>
-									<li>
-										<a data-edit="fontName Lucida Sans" style="font-family:'Lucida Sans'">Lucida Sans</a>
-									</li>
-									<li>
-										<a data-edit="fontName Tahoma" style="font-family:'Tahoma'">Tahoma</a>
-									</li>
-									<li>
-										<a data-edit="fontName Times" style="font-family:'Times'">Times</a>
-									</li>
-									<li>
-										<a data-edit="fontName Times New Roman" style="font-family:'Times New Roman'">Times New Roman</a>
-									</li>
-									<li>
-										<a data-edit="fontName Verdana" style="font-family:'Verdana'">Verdana</a>
-									</li>
-								</ul>
-							</div>
-							<div class="btn-group">
-								<a class="btn dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Font Size"><i class="icon-text-height"></i>&nbsp;<b class="caret"></b></a>
-								<ul class="dropdown-menu">
-									<li>
-										<a data-edit="fontSize 5">
-											<font size="5">Huge</font>
-										</a>
-									</li>
-									<li>
-										<a data-edit="fontSize 3">
-											<font size="3">Normal</font>
-										</a>
-									</li>
-									<li>
-										<a data-edit="fontSize 1">
-											<font size="1">Small</font>
-										</a>
-									</li>
-								</ul>
-							</div>
-							<div class="btn-group">
-								<a class="btn btn-info" data-edit="bold" title="" data-original-title="Bold (Ctrl/Cmd+B)"><i class="icon-bold"></i></a>
-								<a class="btn" data-edit="italic" title="" data-original-title="Italic (Ctrl/Cmd+I)"><i class="icon-italic"></i></a>
-								<a class="btn" data-edit="strikethrough" title="" data-original-title="Strikethrough"><i class="icon-strikethrough"></i></a>
-								<a class="btn" data-edit="underline" title="" data-original-title="Underline (Ctrl/Cmd+U)"><i class="icon-underline"></i></a>
-							</div>
-							<div class="btn-group">
-								<a class="btn" data-edit="insertunorderedlist" title="" data-original-title="Bullet list"><i class="icon-list-ul"></i></a>
-								<a class="btn" data-edit="insertorderedlist" title="" data-original-title="Number list"><i class="icon-list-ol"></i></a>
-								<a class="btn" data-edit="outdent" title="" data-original-title="Reduce indent (Shift+Tab)"><i class="icon-indent-left"></i></a>
-								<a class="btn" data-edit="indent" title="" data-original-title="Indent (Tab)"><i class="icon-indent-right"></i></a>
-							</div>
-							<div class="btn-group">
-								<a class="btn btn-info" data-edit="justifyleft" title="" data-original-title="Align Left (Ctrl/Cmd+L)"><i class="icon-align-left"></i></a>
-								<a class="btn" data-edit="justifycenter" title="" data-original-title="Center (Ctrl/Cmd+E)"><i class="icon-align-center"></i></a>
-								<a class="btn" data-edit="justifyright" title="" data-original-title="Align Right (Ctrl/Cmd+R)"><i class="icon-align-right"></i></a>
-								<a class="btn" data-edit="justifyfull" title="" data-original-title="Justify (Ctrl/Cmd+J)"><i class="icon-align-justify"></i></a>
-							</div>
-							<div class="btn-group">
-								<a class="btn dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Hyperlink"><i class="icon-link"></i></a>
-								<div class="dropdown-menu input-append">
-									<input class="span2" placeholder="URL" type="text" data-edit="createLink">
-									<button class="btn" type="button">Add</button>
-								</div>
-								<a class="btn" data-edit="unlink" title="" data-original-title="Remove Hyperlink"><i class="icon-cut"></i></a>
-	
-							</div>
-	
-							<div class="btn-group">
-								<a class="btn" title="" id="pictureBtn" data-original-title="Insert picture (or just drag &amp; drop)"><i class="icon-picture"></i></a>
-								<input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage" style="opacity: 0; position: absolute; top: 0px; left: 0px; width: 41px; height: 30px;">
-							</div>
-							<div class="btn-group">
-								<a class="btn" data-edit="undo" title="" data-original-title="Undo (Ctrl/Cmd+Z)"><i class="icon-undo"></i></a>
-								<a class="btn" data-edit="redo" title="" data-original-title="Redo (Ctrl/Cmd+Y)"><i class="icon-repeat"></i></a>
-							</div>
-							<input type="text" data-edit="inserttext" id="voiceBtn" x-webkit-speech="" style="display: none;">
-						</div>
-					
-						<div id="editor" contenteditable="true">
-							<blockquote style="margin: 0 0 0 40px; border: none; padding: 0px;"><span style="color: inherit; text-align: justify;">Go ahead…</span></blockquote>
+					<div class="editBox" style="width:85%">
+						<div id="trainnnerEditor">
+							<p>请输入文字内容</p>
 						</div>
 						
 						<div class="saveBox">
-							<span class="btn-3">确认</span>
-							<span class="btn-4">撤销</span>
+							<span class="btn-new-ad">确认</span>
 						</div>
 					</div>
 				</div>
-			</div>
+
+            </div>
+				
+			
 			<!--课程表-->
-			<div class="discr roudao">
-				<p class="title">课程表//</p>
+			<div class="discr roudao" style="height: 270px;">
+				<p class="title">柔道课程表//</p>
 				<div class="tableBox">
-					<table>
+					<table style="margin-left: auto;margin-right: auto;">
 						<tr>
 							<th>时间</th>
 							<th>星期一</th>
@@ -392,55 +163,176 @@
 							<th>星期天</th>
 						</tr>
 						<tr>
-							<td><input type="text" /></td>
-							<td><input type="text" /></td>
-							<td><input type="text" /></td>
-							<td><input type="text" /></td>
-							<td><input type="text" /></td>
-							<td><input type="text" /></td>
-							<td><input type="text" /></td>
-							<td><input type="text" /></td>
+							<td><input type="text" name=""></td>
+							<td><input type="text" name=""></td>
+							<td><input type="text" name=""></td>
+							<td><input type="text" name=""></td>
+							<td><input type="text" name=""></td>
+							<td><input type="text" name=""></td>
+							<td><input type="text" name=""></td>
+							<td><input type="text" name=""></td>
 						</tr>
 						<tr>
-							<td><input type="text" /></td>
-							<td><input type="text" /></td>
-							<td><input type="text" /></td>
-							<td><input type="text" /></td>
-							<td><input type="text" /></td>
-							<td><input type="text" /></td>
-							<td><input type="text" /></td>
-							<td><input type="text" /></td>
+							<td><input type="text" name=""></td>
+							<td><input type="text" name=""></td>
+							<td><input type="text" name=""></td>
+							<td><input type="text" name=""></td>
+							<td><input type="text" name=""></td>
+							<td><input type="text" name=""></td>
+							<td><input type="text" name=""></td>
+							<td><input type="text" name=""></td>
 						</tr>
 					</table>
+					
+				</div>
+				<div class="savepage" style="margin-left: auto;text-align:center;margin-right: auto;" >
+						<span class="btn-new-ad">提交整个页面填写信息</span>
 				</div>
 			</div>
 		</div>
 		<!--end container-->
-		<script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
-		<script type="text/javascript" src="js/bootstrap-wysiwyg.js"></script>
-		<script>
-			 $('#editor').wysiwyg();
-			 $('#editor').cleanHtml();
-		</script>
+		
 	</body>
 		<!--end container-->
 		
-		<script>
-			 $('#editor').wysiwyg();
-			 $('#editor').cleanHtml();
-		 	$(document).ready(function(){
-				$('.discr1').each(function(){
-				var maxwidth=35;
-					if($(this).text().length>maxwidth){
-						$(this).text($(this).text().substring(0,maxwidth));
-						$(this).html($(this).html()+"...");
-					}
-				});
-				$('img.del').on('click',function(){
-					$(this).parent('div').css('display','none');
-				})
+		<script type="text/javascript">
+			 
+		function createConentEdit(eidtor_name)
+		{
+			var editor = new wangEditor(eidtor_name);
+
+
+			 editor.config.colors = {
+        		'#880000': '暗红色',
+        		'#800080': '紫色',
+        		'#ff0000': '红色'
+    		};
+
+    		// 字体
+   			editor.config.familys = [
+        		'宋体', '黑体', '楷体', '微软雅黑',
+        		'Arial', 'Verdana', 'Georgia'
+    		];
+
+    		// 字号
+    		editor.config.fontsizes = {
+        	// 格式：'value': 'title'
+        		1: '10px',
+        		2: '13px',
+        		3: '16px',
+        		4: '19px',
+        		5: '22px',
+        		6: '25px',
+        		7: '28px'
+    		};
+
+
+    		editor.config.menus = [
+        		'source',
+        		'|',     // '|' 是菜单组的分割线
+        		'bold',
+        		'underline',
+        		'italic',
+        		'strikethrough',
+        		'eraser',
+        		'forecolor',
+        		'bgcolor',
+        		'|',
+        		'quote',
+        		'fontfamily',
+        		'fontsize',
+        		'head',
+        		'unorderlist',
+        		'orderlist',
+        		'alignleft',
+        		'aligncenter',
+        		'alignright',
+        		'|',
+        		'link',
+        		'unlink',
+        		'table',
+        		'|',
+        		'undo',
+        		'redo'
+     			];
+
+
+       	    // editor.config.hideLinkImg = true;
+
+    		editor.create();
+		}
+		var editorname = 'groundEditor';
+		var editorname_two = 'trainnnerEditor';
+		createConentEdit(editorname);
+		createConentEdit(editorname_two);
+
+
+		function delCoverImage(delObject,coverImageId){
+
+			$.ajax({
+				url:'/cover/delete',
+                type:'post',
+                async: true,
+                data:{
+                        id:coverImageId
+                },
+                dataType : 'json',
+                success : function(result){
+                	if(result.success)
+                	{
+            			delObject.parent('div').remove();
+                		var imageCount = $(".pic-box2").length;
+						if( imageCount == 4)
+            			{
+               				$("#cover_uploader").hide();
+            			}
+            			else
+            			{
+              				$("#cover_uploader").show();
+              				var rest = 4 - imageCount;
+              				$("#cover_uploader_count").text("或将照片拖到这里，封面照片最多可选"+rest+"张");
+            			}
+                	}
+                	else
+            		{
+            			
+            		}
+                },
+                error:function(){
+                	
+                }
 			});
+			
+		}
+
+		function DelImage(Obj)
+		{
+			var coverImageId = $(Obj).parent('div').attr("data-uuid");
+			var delObject = $(Obj);
+			delCoverImage(delObject,coverImageId);
+		}
+
+		
+
+
+		$(document).ready(function(){ 
+　　	　 		
+　　	　 		var imageCount = $(".pic-box2").length;
+            
+            if( imageCount == 4)
+            {
+               $("#cover_uploader").hide();
+            }
+            else
+            {
+              $("#cover_uploader").show();
+              var rest = 4 - imageCount;
+              $("#cover_uploader_count").text("或将照片拖到这里，封面照片最多可选"+rest+"张");
+            }
+　　	　 
+
+		}); 
+
 		</script>
-	</body>
 
 </html>

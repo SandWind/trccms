@@ -81,7 +81,7 @@
 
 			<div class="edit">
 					<label>文章内容<span class="red">*</span></label>
-					<div class="editBox">
+					<div class="editBox" style="width:85%">
 						<div id="adEditor">
 							<p>请输入广告内容</p>
 						</div>
@@ -91,14 +91,40 @@
 							<span class="btn-preview-ad">预览</span>
 						</div>
 					</div>
-				</div>
+			</div>
 		</div>
 
 		
 		
-		<script>
+		<script type="text/javascript">
 			
 			var editor = new wangEditor('adEditor');
+
+
+			 editor.config.colors = {
+        		'#880000': '暗红色',
+        		'#800080': '紫色',
+        		'#ff0000': '红色'
+    		};
+
+    		// 字体
+   			editor.config.familys = [
+        		'宋体', '黑体', '楷体', '微软雅黑',
+        		'Arial', 'Verdana', 'Georgia'
+    		];
+
+    		// 字号
+    		editor.config.fontsizes = {
+        	// 格式：'value': 'title'
+        		1: '10px',
+        		2: '13px',
+        		3: '16px',
+        		4: '19px',
+        		5: '22px',
+        		6: '25px',
+        		7: '28px'
+    		};
+
 			editor.config.uploadImgUrl = '/upload/img';
 
         	// 自定义上传事件
@@ -131,6 +157,8 @@
        	    editor.config.hideLinkImg = true;
 
     		editor.create();
+
+
     		function del_adtopic(uuid)
     		{
     			var isDel = false;
@@ -207,6 +235,7 @@
 				$.ajax({
 					     url:'/adtopic/count',
 					     type:'get',
+					     timeout:3000,
 					     async: false,
 					     dataType : 'json',
                 		 success : function(result) {
@@ -231,7 +260,14 @@
                 	    error : function() {
                     						  alert("查询帖子个数出错");
                     						  isFive = true;
-                                    }
+                                    },
+                        complete : function(XMLHttpRequest,status){ //请求完成后最终执行参数
+　　　　　                           		if(status=='timeout') //超时,status还有success,error等值的情况
+										{
+　　　　　  									alert("超时");
+　　　　　                           		}
+									}
+
 				});
 				return isFive;
 			}
@@ -252,16 +288,16 @@
                 		 success : function(result) {
                 			if(result.success)
                 			{
-                				alert("查询帖子保存成功");
+                				alert("广告保存成功");
                 			}
                 			else
                 			{
-                				alert("查询帖子保存出错");
+                				alert("广告保存出错");
                 			}
                     						
                 						},
                 	    error : function() {
-                    						  alert("查询帖子保存出现异常");
+                    						  alert("广告保存出现异常");
                     						 
                                     }
                         });

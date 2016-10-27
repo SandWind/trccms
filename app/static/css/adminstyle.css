@@ -1,5 +1,5 @@
 @charset "utf-8";
-*{font-size:12px;border:0;margin:0;padding:0;font-family:"微软雅黑";}
+/**{font-size:12px;border:0;margin:0;padding:0;font-family:"微软雅黑";}*/
 body{background: #e7e8ea;}
 ul{display:block;margin:0;padding:0;list-style:none;}
 li{display:block;margin:0;padding:0;list-style: none;}
@@ -14,6 +14,8 @@ a {cursor: pointer;}
 
 /*#editor {overflow:scroll; max-height:300px;}*/
 #adEditor { overflow:scroll;  width: 100%; height: 700px;}
+#groundEditor { overflow:scroll;  width: 100%; height: 400px;}
+#trainnnerEditor { overflow:scroll;  width: 100%; height: 400px;}
 #btn_upload {display: none;}
 .btn-1 {padding: 15px 10px;background: #02bbfe;color: #FFFFFF;}
 .btn-2 {padding: 2px 15px;background: #02bbfe;color: #FFFFFF;}
@@ -104,7 +106,7 @@ div[data-role="editor-toolbar"] {
 /*首页*/
 .showpic3 {margin-left: 15px;background: #f8f8f8;margin-bottom: 15px;}
 .pic-box2 {background: #FFFFFF; padding-top: 5px;padding-left: 5px;padding-right: 5px;border: 1px solid lightgray;display: inline-block;}
-.pic-box2 .showimg {height: 125px;width:260px;}
+.pic-box2 .showing {height: 125px;width:260px;}
 .pic-box2 .discr1 {width: 260px;}
 .pic-box2 .del {width: 20px;float: right;padding: 10px;margin-top: -15px;margin-right: -5px;background: #f4f4f4;}
 .discrBox {padding-top: 5px;padding-bottom: 5px;}

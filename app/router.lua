@@ -10,7 +10,7 @@ local AdminPageRouter = require("app.routes.admin")
 local AuthRouter =  require("app.routes.auth")
 local uploadRouter = require("app.routes.upload")
 local AdtopicRouter = require("app.routes.adtopic")
-
+local CoverRouter= require("app.routes.cover")
 return function(app)
 
     -- -- group router, 对以`/user`开始的请求做过滤处理
@@ -48,6 +48,7 @@ return function(app)
     app:use("/auth",AuthRouter())
     app:use("/upload",uploadRouter())
     app:use("/adtopic",AdtopicRouter())
+    app:use("/cover",CoverRouter())
     
 end
 
