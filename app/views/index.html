@@ -55,8 +55,10 @@
   
     <script>
 
+    
 
       $(function(){
+        {% if #samples > 0 then  %}
         //轮播
         if($('.lunbo').length === 1) {
           var mySwiper2 = new Swiper('.banner', {
@@ -72,8 +74,8 @@
             pagination: '.pagination',
           });
         }
-
-        //banner自适应高度
+        {%end%}
+        //banner自适应高度 
         $('.swiper-container').css('height',$(this).width()*0.3);
         $('.swiper-wrapper').css('height',$('.swiper-container').width()*0.3);
         $('.swiper-slide').css('height',$('.swiper-container').width()*0.3);

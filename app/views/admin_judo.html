@@ -24,7 +24,7 @@
 
 			<div class="discr roudao">
 				<p class="title">封面广告图</p>
-				<div class="showpic3">
+				<div class="showpic3" id="cover_image_list">
 				    {%for _,v in pairs(covers) do %}
 					   <div class="pic-box2" data-uuid = "{{v.cover_id}}" style="position:relative">
 						   <img class="showing" src="{{v.cover_img}}" />

@@ -573,6 +573,21 @@
 
         $upload.addClass( 'state-' + state );
         updateTotalProgress();
+
+        var coverImageArray = new Array();
+        var pagname = $('.container').attr('data-pagename');
+
+        uploader.on( 'uploadAccept', function( file, response ) {
+            
+
+            if (response != 'undefined') 
+            {
+                coverImageArray.push(response._raw);
+            }
+            
+        });
     });
+
+    
 
 })( jQuery );

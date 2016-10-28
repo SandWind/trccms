@@ -51,19 +51,21 @@ local function _multipart_formdata(config)
 			if prefix == "Content-Disposition" then
 				paramKey = match(suffix, "name=\"(.-)\"")
 				origin_filename = match(suffix, "filename=\"(.-)\"")
+				if origin_filename then
+					isFile = true
+				else
+					isFile = false
+				end
 			elseif prefix == "Content-Type" then
 				filetype = suffix
 			end
 
-			if origin_filename then
-				isFile = true
-			else
-				isFile = false
-			end
+			
 
 			if isFile and origin_filename and filetype then
 			   if not extname then
 					extname = getextension(origin_filename)
+					extname = extname:lower()
 				end
 
 				if extname ~= "png" and extname ~= "jpg" and extname ~= "jpeg"  and extname ~= "bmp"  and extname ~= "gif" then
@@ -112,6 +114,8 @@ local function _multipart_formdata(config)
              file = nil
              filename = nil
              origin_filename = nil
+             isFile =false
+             filetype = nil
 		  else
 		  	params[paramKey] = paramValue
 		  end 

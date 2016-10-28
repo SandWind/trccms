@@ -22,7 +22,7 @@ function gymnasium_model:new(gymnasium_descri,pagename,gymnasium_pics)
 	   	  	  return false
 	   	  	end 
 	   	  end
-	   	  
+
 	   end 
 	end
 
@@ -34,7 +34,7 @@ function
 
 function gymnasium_model:query_pic_by_pagename(pagename)
 	
-	local  res,err = db:query("select * from gymnasium_pics p left join gymnasium_introduce  i on p.gymnasium_id = i.gymnasium_id where i.page_name = ?",{gymnasium_id})
+	local  res,err = db:query("select * from gymnasium_pics p left join gymnasium_introduce  i on p.gymnasium_id = i.gymnasium_id where i.pagename = ?",{pagename})
 
 	if not res or err or type(res) ~= "table" or #res <= 0 then
         return {}

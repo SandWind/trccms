@@ -153,7 +153,7 @@
             chunkSize: 512 * 1024,
             server: '/upload/img',
 
-            runtimeOrder: 'flash',
+            // runtimeOrder: 'flash',
 
             accept: {
                 title: 'Images',
@@ -480,6 +480,8 @@
                     stats = uploader.getStats();
                     if ( stats.successNum ) {
                         // alert( '上传成功' );
+                        uploader.reset();
+
                     } else {
                         // 没有成功的图片，重设
                         state = 'done';
@@ -593,7 +595,7 @@
 
                         console.log("图片记录成功");
                         
-                        $(".showpic3").append("<div class=\"pic-box2\" data-uuid = \""+result.coverId+"\" style=\"position:relative\">\n" +
+                        $("#cover_image_list").append("<div class=\"pic-box2\" data-uuid = \""+result.coverId+"\" style=\"position:relative\">\n" +
                                               "<img class=\"showing\" src=\""+image_Url+"\"/>\n" +
                                               "<img class=\"del\" src=\"/static/files/del.png\" style=\"position:absolute;right:10px;bottom:0px\"onclick=\"DelImage(this)\"/>\n"+
                                               "</div>\n");
@@ -632,6 +634,19 @@
             {
                 // coverImageArray.push(response._raw);
                 recordImageData(response._raw,pagname);
+                
+                var imageCount = $(".pic-box2").length;
+                        
+                if( imageCount == 4)
+                {
+                    $("#cover_uploader").hide();
+                }
+                else
+                {
+                    $("#cover_uploader").show();
+                }
+
+
                 
             }
             
