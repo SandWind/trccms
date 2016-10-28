@@ -586,6 +586,81 @@
             }
             
         });
+
+        function recordImageData(image_Url,page_name){
+            $.ajax({
+                url:'/gymnasiumPic/new',
+                type:'post',
+                async: false,
+                data:{
+                        imageurl:image_Url,
+                        pagename: page_name
+                },
+                dataType : 'json',
+                success : function(result){
+
+                    if (result.success) 
+                    {
+
+                        console.log("图片记录成功");
+                        
+                        $("#gymnasium_pic_list").append("<div class=\"pic-box2\" data-uuid = \""+result.gymnasiumPicId+"\" style=\"position:relative\">\n" +
+                                              "<img class=\"showing\" src=\""+image_Url+"\"/>\n" +
+                                              "<img class=\"del\" src=\"/static/files/del.png\" style=\"position:absolute;right:10px;bottom:0px\"onclick=\"del_g_pic(this)\"/>\n"+
+                                              "</div>\n");
+
+                        var imageCount = $(".pic-box2").length;
+                        
+                        if( imageCount == 4)
+                        {
+                            $("#gymnasium_pic_list").hide();
+                        }
+                        else
+                        {
+                            $("#gymnasium_pic_list").show();
+                        }
+
+                    }
+
+                },
+
+                error: function(){
+
+                    alert("上传出现异常,请检测网络");
+                }
+            });
+        }
+
+
+
+        // var coverImageArray = new Array();
+        var pagname = $('.container').attr('data-pagename');
+
+        uploader.on( 'uploadAccept', function( file, response ) {
+            
+
+            if (response != 'undefined') 
+            {
+                // coverImageArray.push(response._raw);
+                recordImageData(response._raw,pagname);
+                
+                var imageCount = $(".pic-box2").length;
+                        
+                if( imageCount == 4)
+                {
+                    $("#gymnasium_uploader").hide();
+                }
+                else
+                {
+                    $("#gymnasium_uploader").show();
+                }
+
+
+                
+            }
+            
+        });
+
     });
 
     

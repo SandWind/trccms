@@ -61,6 +61,16 @@
 			<div class="discr roudao">
 			   <p class="title">柔道场馆介绍</p>
 
+               <div class="showpic3" id="gymnasium_pic_list">
+                    {%for _,v in pairs(gymnasiumPics) do %}
+                       <div class="pic-box2" data-uuid = "{{v.gymnasium_pic_id}}" style="position:relative">
+                           <img class="showing" src="{{v.gymnasium_pic}}" />
+                           <img class="del" src="/static/files/del.png" style="position:absolute;right:10px;bottom:0px" onclick="del_g_pic(this)"/>
+                       </div>
+                    {%end%}
+                </div>
+
+
 			   <div class ="wrapper">
         		   <div class ="uploader_container">
             	<!--头部，相册选择和格式选择-->
@@ -68,7 +78,7 @@
                 		 <div class="queueList">
                     		<div id="gymnasium_dndArea" class="placeholder">
                         		<div id="gymnasium_filePicker" ></div>
-                        		<p>或将照片拖到这里，场地照片最多可选6张</p>
+                        		<p id="gymnasium_uploader_count">或将照片拖到这里，场地照片最多可选6张</p>
                     		</div>
                 		 </div>
                 		 <div class="statusBar" style="display:none;">
@@ -305,6 +315,44 @@
 			
 		}
 
+        function delgymnasiumPics(delObject,coverImageId){
+
+            $.ajax({
+                url:'/gymnasiumPic/delete',
+                type:'post',
+                async: true,
+                data:{
+                        id:coverImageId
+                },
+                dataType : 'json',
+                success : function(result){
+                    if(result.success)
+                    {
+                        delObject.parent('div').remove();
+                        var imageCount = $(".pic-box2").length;
+                        if( imageCount == 4)
+                        {
+                            $("#gymnasium_uploader").hide();
+                        }
+                        else
+                        {
+                            $("#gymnasium_uploader").show();
+                            var rest = 4 - imageCount;
+                            $("#gymnasium_uploader_count").text("或将照片拖到这里，封面照片最多可选"+rest+"张");
+                        }
+                    }
+                    else
+                    {
+                        
+                    }
+                },
+                error:function(){
+                    
+                }
+            });
+            
+        }
+
 		function DelImage(Obj)
 		{
 			var coverImageId = $(Obj).parent('div').attr("data-uuid");
@@ -312,7 +360,12 @@
 			delCoverImage(delObject,coverImageId);
 		}
 
-		
+		function del_g_pic(Obj)
+        {
+            var coverImageId = $(Obj).parent('div').attr("data-uuid");
+            var delObject = $(Obj);
+            delgymnasiumPics(delObject,coverImageId);
+        }
 
 
 		$(document).ready(function(){ 

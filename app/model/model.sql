@@ -19,9 +19,9 @@ DROP TABLE IF EXISTS `gymnasium_pics`;
 
 CREATE TABLE `gymnasium_pics` 
 (
-	`gymnasium_pic_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-	`gymnasium_pic`    varchar(225) NOT NULL DEFAULT '',
-	`gymnasium_id`	   int(11) unsigned NOT NULL,
+	`gymnasium_pic_id`  int(11) unsigned NOT NULL AUTO_INCREMENT,
+	`gymnasium_pic`     varchar(225) NOT NULL DEFAULT '',
+	`pagename`			varchar(225) NOT NULL DEFAULT '',
 	PRIMARY KEY (`gymnasium_pic_id`)
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

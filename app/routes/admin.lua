@@ -2,7 +2,7 @@ local lor = require("lor.index")
 local AdimPageRouter = lor:Router()
 local Admodel= require("app.model.ad_model")
 local Covermodel =  require("app.model.cover_model")
-
+local GymnasiumPicsModel = require("app.model.gymnasium_pics_model")
 local category = {
 					first="广告",
 					second = "柔道",
@@ -36,10 +36,12 @@ AdimPageRouter:get("/ad",function(req, res, next)
 AdimPageRouter:get("/judo",function(req, res, next)
 
 		local pagename = "judo"
-		local covers = Covermodel:query_by_pagename(pagename);
+		local covers = Covermodel:query_by_pagename(pagename)
+		local gymnasiumPics = GymnasiumPicsModel:query_by_pagename(pagename)
 		res:render("admin_judo",{ title = category.second,
 								  pagename = pagename, 
-								  covers = covers
+								  covers = covers,
+								  gymnasiumPics=gymnasiumPics
 								 })
 	
 	end)
