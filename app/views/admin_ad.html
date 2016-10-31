@@ -15,7 +15,7 @@
 
 		<div class="container index">
 			<div class="nav">
-				<span><a class="active" href="/admin/ad">首页广告</a></span>
+				<span><a class="active" href="/admin/ad">广告</a></span>
 				<span><a class="unactive" href="/admin/judo">柔道</a></span>
 				<span><a class="unactive" href="/admin/yoga">瑜伽</a></span>
 				<span><a class="unactive" href="/admin/freepower">自由力量</a></span>
@@ -193,6 +193,27 @@
 
     			return isDel;
     		}
+
+
+    		function selectNav(){
+
+            	var title = document.title;
+
+            	$('.nav a').each(function(){
+
+                	var txt = $(this).text();
+                	if(title == txt)
+                	{
+                    	$(this).addClass("active")
+                	}
+                	else
+                	{	
+                    	$(this).removeClass("active")
+                	}
+            	});
+        	}
+
+
 		 	$(document).ready(function(){
 				$('.discr1').each(function(){
 				var maxwidth=35;
@@ -213,6 +234,7 @@
 					
 
 				})
+				selectNav();
 			});
 
 			function DataLength(fData) 

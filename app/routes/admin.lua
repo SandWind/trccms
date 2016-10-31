@@ -3,6 +3,7 @@ local AdimPageRouter = lor:Router()
 local Admodel= require("app.model.ad_model")
 local Covermodel =  require("app.model.cover_model")
 local GymnasiumPicsModel = require("app.model.gymnasium_pics_model")
+local GymnasiumDescriModel = require("app.model.gymnasium_descri_model")
 local category = {
 					first="广告",
 					second = "柔道",
@@ -38,7 +39,24 @@ AdimPageRouter:get("/judo",function(req, res, next)
 		local pagename = "judo"
 		local covers = Covermodel:query_by_pagename(pagename)
 		local gymnasiumPics = GymnasiumPicsModel:query_by_pagename(pagename)
+		local GymnasiumDescri = GymnasiumDescriModel:query_descri_by_pagename(pagename)
 		res:render("admin_judo",{ title = category.second,
+								  pagename = pagename, 
+								  covers = covers,
+								  gymnasiumPics=gymnasiumPics,
+								  gymnasiumDescri =  GymnasiumDescri
+								 })
+	
+	end)
+
+
+AdimPageRouter:get("/yoga",function(req, res, next)
+
+		-- res:render("admin_yoga",{ title = category.third})
+		local pagename = "yoga"
+		local covers = Covermodel:query_by_pagename(pagename)
+		local gymnasiumPics = GymnasiumPicsModel:query_by_pagename(pagename)
+		res:render("admin_judo",{ title = category.third,
 								  pagename = pagename, 
 								  covers = covers,
 								  gymnasiumPics=gymnasiumPics
@@ -47,23 +65,32 @@ AdimPageRouter:get("/judo",function(req, res, next)
 	end)
 
 
-AdimPageRouter:get("/yoga",function(req, res, next)
-
-		res:render("admin_yoga",{ title = category.third})
-	
-	end)
-
-
 AdimPageRouter:get("/freepower",function(req, res, next)
 
-		res:render("admin_freepower",{ title = category.fouth})
+		-- res:render("admin_freepower",{ title = category.fouth})
+		local pagename = "freepower"
+		local covers = Covermodel:query_by_pagename(pagename)
+		local gymnasiumPics = GymnasiumPicsModel:query_by_pagename(pagename)
+		res:render("admin_judo",{ title = category.fouth,
+								  pagename = pagename, 
+								  covers = covers,
+								  gymnasiumPics=gymnasiumPics
+								 })
 	
 	end)
 
 AdimPageRouter:get("/aerabic",function(req, res, next)
 
 
-		res:render("admin_aerabic",{  title = category.fiveth})
+		-- res:render("admin_aerabic",{  title = category.fiveth})
+		local pagename = "aerabic"
+		local covers = Covermodel:query_by_pagename(pagename)
+		local gymnasiumPics = GymnasiumPicsModel:query_by_pagename(pagename)
+		res:render("admin_judo",{ title = category.fiveth,
+								  pagename = pagename, 
+								  covers = covers,
+								  gymnasiumPics=gymnasiumPics
+								 })
 
 	end)
 

@@ -164,7 +164,7 @@
             disableGlobalDnd: false,
             sendAsBinary:false,
             runtimeOrder: 'html5',
-            fileNumLimit: 5,
+            fileNumLimit: 6,
             fileSizeLimit: 200 * 1024 * 1024,    // 200 M
             fileSingleSizeLimit: 50 * 1024 * 1024    // 50 M
         });
@@ -644,9 +644,9 @@
                 // coverImageArray.push(response._raw);
                 recordImageData(response._raw,pagname);
                 
-                var imageCount = $(".pic-box2").length;
+                var imageCount = $("#gymnasium_pic_list .pic-box2").length;
                         
-                if( imageCount == 4)
+                if( imageCount == 6)
                 {
                     $("#gymnasium_uploader").hide();
                 }

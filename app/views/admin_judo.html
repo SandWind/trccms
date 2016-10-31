@@ -15,11 +15,11 @@
 
 		<div class="container" data-pagename="{{pagename}}">
 			<div class="nav">
-				<span><a class="unactive" href="/admin/ad">首页广告</a></span>
-				<span><a class="active" href="/admin/judo">柔道</a></span>
-				<span><a class="unactive" href="/admin/yoga">瑜伽</a></span>
-				<span><a class="unactive" href="/admin/freepower">自由力量</a></span>
-				<span><a class="unactive" href="/admin/aerabic">有氧训练</a></span>
+				<span><a  href="/admin/ad">首页广告</a></span>
+				<span><a  href="/admin/judo">柔道</a></span>
+				<span><a  href="/admin/yoga">瑜伽</a></span>
+				<span><a  href="/admin/freepower">自由力量</a></span>
+				<span><a  href="/admin/aerabic">有氧运动</a></span>
 			</div>
 
 			<div class="discr roudao">
@@ -59,7 +59,7 @@
 
 			<!--柔道介绍-->
 			<div class="discr roudao">
-			   <p class="title">柔道场馆介绍</p>
+			   <p class="title">场馆介绍</p>
 
                <div class="showpic3" id="gymnasium_pic_list">
                     {%for _,v in pairs(gymnasiumPics) do %}
@@ -104,7 +104,7 @@
 						</div>
 						
 						<div class="saveBox">
-							<span class="btn-new-ad">确认</span>
+							<span class="btn-new-ad" id="gymnasium_text">确认</span>
 						</div>
 					</div>
 				</div>
@@ -113,7 +113,7 @@
 			
 			<!--教练介绍-->
 			<div class="discr roudao">
-				<p class="title">柔道教练介绍</p>
+				<p class="title">教练介绍</p>
 				
 				<div class ="wrapper">
         		   <div class ="uploader_container">
@@ -159,7 +159,7 @@
 			
 			<!--课程表-->
 			<div class="discr roudao" style="height: 270px;">
-				<p class="title">柔道课程表//</p>
+				<p class="title">课程表//</p>
 				<div class="tableBox">
 					<table style="margin-left: auto;margin-right: auto;">
 						<tr>
@@ -269,13 +269,20 @@
 
        	    // editor.config.hideLinkImg = true;
 
-    		editor.create();
+    		 editor.create();
+
+             return editor;
 		}
 		var editorname = 'groundEditor';
 		var editorname_two = 'trainnnerEditor';
-		createConentEdit(editorname);
-		createConentEdit(editorname_two);
+		var editor1 = createConentEdit(editorname);
+		var editor2 = createConentEdit(editorname_two);
+        var apiUrl = null;
+        var descri_id = null;
 
+        {%if #gymnasiumDescri > 0 then %}
+            editor1.$txt.html('{{gymnasiumDescri.gymnasium_descri}}');
+        {%end%}
 
 		function delCoverImage(delObject,coverImageId){
 
@@ -329,15 +336,15 @@
                     if(result.success)
                     {
                         delObject.parent('div').remove();
-                        var imageCount = $(".pic-box2").length;
-                        if( imageCount == 4)
+                        var imageCount = $("#gymnasium_pic_list .pic-box2").length;
+                        if( imageCount == 6)
                         {
                             $("#gymnasium_uploader").hide();
                         }
                         else
                         {
                             $("#gymnasium_uploader").show();
-                            var rest = 4 - imageCount;
+                            var rest = 6 - imageCount;
                             $("#gymnasium_uploader_count").text("或将照片拖到这里，封面照片最多可选"+rest+"张");
                         }
                     }
@@ -353,24 +360,21 @@
             
         }
 
-		function DelImage(Obj)
-		{
+		function DelImage(Obj){
+
 			var coverImageId = $(Obj).parent('div').attr("data-uuid");
 			var delObject = $(Obj);
 			delCoverImage(delObject,coverImageId);
 		}
 
-		function del_g_pic(Obj)
-        {
+		function del_g_pic(Obj){
             var coverImageId = $(Obj).parent('div').attr("data-uuid");
             var delObject = $(Obj);
             delgymnasiumPics(delObject,coverImageId);
         }
 
-
-		$(document).ready(function(){ 
-　　	　 		
-　　	　 		var imageCount = $(".pic-box2").length;
+        function coverUploader(){
+            var imageCount = $("#cover_image_list .pic-box2").length;
             
             if( imageCount == 4)
             {
@@ -380,11 +384,127 @@
             {
               $("#cover_uploader").show();
               var rest = 4 - imageCount;
-              $("#cover_uploader_count").text("或将照片拖到这里，封面照片最多可选"+rest+"张");
+              $("#gymnasium_uploader_count").text("或将照片拖到这里，封面照片最多可选"+rest+"张");
             }
-　　	　 
+        }
+
+
+        function gymnasiumUploader(){
+
+            var imageCount = $("#gymnasium_pic_list .pic-box2").length;
+            
+            if( imageCount == 6)
+            {
+               $("#gymnasium_uploader").hide();
+            }
+            else
+            {
+              $("#gymnasium_uploader").show();
+              var rest = 6 - imageCount;
+              $("#gymnasium_uploader_count").text("或将照片拖到这里，封面照片最多可选"+rest+"张");
+            }
+        }
+
+        function selectNav(){
+
+            var title = document.title;
+
+            $('.nav a').each(function(){
+
+                var txt = $(this).text();
+                if(title == txt)
+                {
+                    $(this).addClass("active")
+                }
+                else
+                {
+                    $(this).removeClass("active")
+                }
+            });
+        }
+
+
+        function EditContentForDescri(){
+            
+        }
+
+
+        function DataLength(fData) { 
+                var intLength=0; 
+                for (var i=0;i<fData.length;i++) 
+                { 
+                    if ((fData.charCodeAt(i) < 0) || (fData.charCodeAt(i) > 255)) 
+                        intLength=intLength+2;
+                    else 
+                        intLength=intLength+1;
+                } 
+                return intLength;
+        } 
+
+
+        $('#gymnasium_text')on('click',function(){
+                var content = editor1.$txt.html();
+                if(content.length > 1000)
+                {
+                    alert("超过编辑最大字数");
+                    return;
+                }
+
+                
+            {%if #gymnasiumDescri > 0 then %}
+                apiUrl = '/gymnasiumDescri/update';
+                descri_id = {{gymnasiumDescri.gymnasium_id}};
+            {%else%}
+                apiUrl = '/gymnasiumDescri/new';
+            {%end%}
+
+            $.ajax({
+                url: apiUrl,
+                type:'post',
+                async: true,
+                {%if #gymnasiumDescri > 0 then %}      
+                    data:{
+                            id:descri_id,
+                            descri: editor1.html(),
+                            pagename: $('.container').attr('data-pagename')
+                    },
+                {%else%}
+                    data:{
+                            descri: editor1.html(),
+                            pagename: $('.container').attr('data-pagename')
+                    },      
+                {%end%}
+                dataType : 'json',
+                success:function(result){
+                    if(result.success)
+                    {
+                        apiUrl = '/gymnasiumDescri/update';
+                        descri_id = result.DescriId;
+                    }
+                    else
+                    {
+                        
+                    }
+
+                },
+                error:function(){
+
+                }
+
+
+            });
+
+        });
+
+		$(document).ready(function(){ 
+　　	　 		selectNav();
+　　	　 		coverUploader();
+　　	　      gymnasiumUploader();
 
 		}); 
+
+
+
 
 		</script>
 
