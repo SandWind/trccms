@@ -147,24 +147,24 @@
             
             dnd: '#trainner_dndArea',
             paste: '#trainner_uploader',
-            swf: '/static/swf/Uploader.swf',
-            chunked: true,
-            chunkSize: 512 * 1024,
+            swf: '/static/Uploader/Uploader.swf',
+            // chunked: true,
+            // chunkSize: 512 * 1024,
             server: '/upload/img',
 
             // runtimeOrder: 'flash',
 
             accept: {
                 title: 'Images',
-                extensions: 'gif,jpg,jpeg,bmp,png',
+                extensions: 'jpg,jpeg,bmp,png',
                 mimeTypes: 'image/*'
             },
             
             // 禁掉全局的拖拽功能。这样不会出现图片拖进页面的时候，把图片打开。
             disableGlobalDnd: false,
             sendAsBinary:false,
-            runtimeOrder: 'html5',
-            fileNumLimit: 5,
+            // runtimeOrder: 'html5',
+            fileNumLimit: 1,
             fileSizeLimit: 200 * 1024 * 1024,    // 200 M
             fileSingleSizeLimit: 50 * 1024 * 1024    // 50 M
         });
@@ -479,7 +479,7 @@
                 case 'finish':
                     stats = uploader.getStats();
                     if ( stats.successNum ) {
-                        alert( '上传成功' );
+                        // alert( '上传成功' );
                     } else {
                         // 没有成功的图片，重设
                         state = 'done';
@@ -573,6 +573,82 @@
 
         $upload.addClass( 'state-' + state );
         updateTotalProgress();
+
+        function recordImageData(image_Url,page_name){
+            $.ajax({
+                url:'/trainnerPic/new',
+                type:'post',
+                async: true,
+                data:{
+                        imageurl:image_Url,
+                        pagename: page_name
+                },
+                dataType : 'json',
+                success : function(result){
+
+                    if (result.success) 
+                    {
+
+                        console.log("图片记录成功");
+                        
+                        $("#trainner_image_list").append("<div class=\"pic-box2\" data-uuid = \""+result.PicId+"\" style=\"position:relative\">\n" +
+                                              "<img class=\"showing\" src=\""+image_Url+"\"/>\n" +
+                                              "<img class=\"del\" src=\"/static/files/del.png\" style=\"position:absolute;right:10px;bottom:0px\"onclick=\"DelTrainnerImage(this)\"/>\n"+
+                                              "</div>\n");
+
+                        var imageCount = $("#trainner_image_list .pic-box2").length;
+                        
+                        if( imageCount == 1)
+                        {
+                            $("#trainner_uploader").hide();
+                        }
+                        else
+                        {
+                            $("#trainner_uploader").show();
+                        }
+
+                    }
+
+                },
+
+                error: function(){
+
+                    alert("上传出现异常,请检测网络");
+                }
+            });
+        }
+
+
+
+        // var coverImageArray = new Array();
+        var pagname = $('.container').attr('data-pagename');
+
+        uploader.on( 'uploadAccept', function( file, response ) {
+            
+
+            if (response != 'undefined') 
+            {
+                // coverImageArray.push(response._raw);
+                recordImageData(response._raw,pagname);
+                
+                var imageCount = $("#trainner_image_list .pic-box2").length;
+                        
+                if( imageCount == 1)
+                {
+                    $("#trainner_uploader").hide();
+                }
+                else
+                {
+                    $("#trainner_uploader").show();
+                }
+
+
+                
+            }
+            
+        });
+
+
     });
 
 })( jQuery );

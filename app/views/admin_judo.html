@@ -100,11 +100,18 @@
 					<label>文章内容<span class="red">*</span></label>
 					<div class="editBox" style="width:85%">
 						<div id="groundEditor">
-							<p>请输入文字内容</p>
+                        {%if #gymnasiumDescri > 0 then %}
+                            {%for _,v in pairs(gymnasiumDescri) do %}
+                                {*v.gymnasium_descri*}
+                            {%end%}
+                        {%else%}
+                                <p>请输入文字内容</p>
+                        {%end%}
+							
 						</div>
 						
 						<div class="saveBox">
-							<span class="btn-new-ad" id="gymnasium_text">确认</span>
+							<span class="btn-new-ad" id="gymnasium_text">保存</span>
 						</div>
 					</div>
 				</div>
@@ -114,7 +121,14 @@
 			<!--教练介绍-->
 			<div class="discr roudao">
 				<p class="title">教练介绍</p>
-				
+				<div class="showpic3" id="trainner_image_list">
+                    {%for _,v in pairs(TrainnerPics) do %}
+                       <div class="pic-box2" data-uuid = "{{v.trainer_pic_id}}" style="position:relative">
+                           <img class="showing" src="{{v.trainer_img}}" />
+                           <img class="del" src="/static/files/del.png" style="position:absolute;right:10px;bottom:0px" onclick="DelTrainnerImage(this)"/>
+                       </div>
+                    {%end%}
+                </div>
 				<div class ="wrapper">
         		   <div class ="uploader_container">
             	<!--头部，相册选择和格式选择-->
@@ -145,7 +159,13 @@
 					<label>文章内容<span class="red">*</span></label>
 					<div class="editBox" style="width:85%">
 						<div id="trainnnerEditor">
-							<p>请输入文字内容</p>
+						{%if #TrainnerDescr > 0 then %}
+                            {%for _,v in pairs(TrainnerDescr) do %}
+                                {*v.trainer_descri*}
+                            {%end%}
+                        {%else%}
+                                <p>请输入文字内容</p>
+                        {%end%}
 						</div>
 						
 						<div class="saveBox">
@@ -196,7 +216,7 @@
 					
 				</div>
 				<div class="savepage" style="margin-left: auto;text-align:center;margin-right: auto;" >
-						<span class="btn-new-ad">提交整个页面填写信息</span>
+						<span class="btn-new-ad">保存课表信息</span>
 				</div>
 			</div>
 		</div>
@@ -277,12 +297,28 @@
 		var editorname_two = 'trainnnerEditor';
 		var editor1 = createConentEdit(editorname);
 		var editor2 = createConentEdit(editorname_two);
-        var apiUrl = null;
-        var descri_id = null;
-
+        var api_descri_Url;
+        var descri_id;
+        var api_trainner_url;
+        var trainner_descri_id;
         {%if #gymnasiumDescri > 0 then %}
-            editor1.$txt.html('{{gymnasiumDescri.gymnasium_descri}}');
+            api_descri_Url = '/gymnasiumDescri/update';
+            {%for _,v in pairs(gymnasiumDescri) do %}
+                descri_id = {{v.gymnasium_id}};
+            {%end%}
+        {%else%}
+            api_descri_Url = '/gymnasiumDescri/new';
         {%end%}
+
+        {%if #TrainnerDescr > 0 then %}
+            api_trainner_url = '/trainnerDescri/update';
+            {%for _,v in pairs(TrainnerDescr) do %}
+                trainner_descri_id= {{v.trainer_id}};
+            {%end%}
+        {%else%}
+            api_trainner_url = '/trainnerDescri/new';
+        {%end%}
+
 
 		function delCoverImage(delObject,coverImageId){
 
@@ -423,54 +459,29 @@
             });
         }
 
+        $('#gymnasium_text').on('click',function(){
 
-        function EditContentForDescri(){
-            
-        }
-
-
-        function DataLength(fData) { 
-                var intLength=0; 
-                for (var i=0;i<fData.length;i++) 
-                { 
-                    if ((fData.charCodeAt(i) < 0) || (fData.charCodeAt(i) > 255)) 
-                        intLength=intLength+2;
-                    else 
-                        intLength=intLength+1;
-                } 
-                return intLength;
-        } 
-
-
-        $('#gymnasium_text')on('click',function(){
                 var content = editor1.$txt.html();
+                
                 if(content.length > 1000)
                 {
                     alert("超过编辑最大字数");
                     return;
                 }
 
-                
-            {%if #gymnasiumDescri > 0 then %}
-                apiUrl = '/gymnasiumDescri/update';
-                descri_id = {{gymnasiumDescri.gymnasium_id}};
-            {%else%}
-                apiUrl = '/gymnasiumDescri/new';
-            {%end%}
-
             $.ajax({
-                url: apiUrl,
+                url: api_descri_Url,
                 type:'post',
                 async: true,
                 {%if #gymnasiumDescri > 0 then %}      
                     data:{
                             id:descri_id,
-                            descri: editor1.html(),
+                            descri: content,
                             pagename: $('.container').attr('data-pagename')
                     },
                 {%else%}
                     data:{
-                            descri: editor1.html(),
+                            descri: content,
                             pagename: $('.container').attr('data-pagename')
                     },      
                 {%end%}
@@ -478,23 +489,68 @@
                 success:function(result){
                     if(result.success)
                     {
-                        apiUrl = '/gymnasiumDescri/update';
+                        api_descri_Url = '/gymnasiumDescri/update';
                         descri_id = result.DescriId;
+                        alert("保存场馆成功");
                     }
                     else
                     {
-                        
+                        alert("保存场馆介绍失败");
                     }
 
                 },
                 error:function(){
-
+                     alert("保存场馆介绍出现异常，请检查网络");
                 }
 
 
             });
 
         });
+        
+
+        function deltrainnerPic(delObject,ImageId){
+            $.ajax({
+                url:'/trainnerPic/delete',
+                type:'post',
+                async: true,
+                data:{
+                        id:ImageId
+                },
+                dataType : 'json',
+                success : function(result){
+                    if(result.success)
+                    {
+                        delObject.parent('div').remove();
+                        var imageCount = $("#trainner_image_list .pic-box2").length;
+                        if( imageCount == 1)
+                        {
+                            $("#trainner_uploader").hide();
+                        }
+                        else
+                        {
+                            $("#trainner_uploader").show();
+                        }
+                    }
+                    else
+                    {
+                        
+                    }
+                },
+                error:function(){
+                    
+                }
+            });
+        }
+        
+
+        function DelTrainnerImage(Obj){
+            var ImageId = $(Obj).parent('div').attr("data-uuid");
+            var delObject = $(Obj);
+            deltrainnerPic(delObject,ImageId);
+
+        }
+        
 
 		$(document).ready(function(){ 
 　　	　 		selectNav();

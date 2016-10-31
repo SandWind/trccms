@@ -148,15 +148,15 @@
             dnd: '#gymnasium_dndArea',
             paste: '#gymnasium_uploader',
             swf: '/static/swf/Uploader.swf',
-            chunked: true,
-            chunkSize: 512 * 1024,
+            // chunked: true,
+            // chunkSize: 512 * 1024,
             server: '/upload/img',
 
             // runtimeOrder: 'flash',
 
             accept: {
                 title: 'Images',
-                extensions: 'gif,jpg,jpeg,bmp,png',
+                extensions: 'jpg,jpeg,bmp,png',
                 mimeTypes: 'image/*'
             },
             
@@ -609,7 +609,7 @@
                                               "<img class=\"del\" src=\"/static/files/del.png\" style=\"position:absolute;right:10px;bottom:0px\"onclick=\"del_g_pic(this)\"/>\n"+
                                               "</div>\n");
 
-                        var imageCount = $(".pic-box2").length;
+                        var imageCount = $("#gymnasium_pic_list .pic-box2").length;
                         
                         if( imageCount == 4)
                         {

@@ -149,8 +149,8 @@
             paste: '#cover_uploader',
             swf: '/static/Uploader/Uploader.swf',
 
-            chunked: true,
-            chunkSize: 512 * 1024,
+            // chunked: true,
+            // chunkSize: 512 * 1024,
             server: '/upload/img',
 
             // runtimeOrder: 'flash',
@@ -600,7 +600,7 @@
                                               "<img class=\"del\" src=\"/static/files/del.png\" style=\"position:absolute;right:10px;bottom:0px\"onclick=\"DelImage(this)\"/>\n"+
                                               "</div>\n");
 
-                        var imageCount = $(".pic-box2").length;
+                        var imageCount = $("#cover_image_list .pic-box2").length;
                         
                         if( imageCount == 4)
                         {

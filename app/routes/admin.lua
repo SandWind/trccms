@@ -4,6 +4,8 @@ local Admodel= require("app.model.ad_model")
 local Covermodel =  require("app.model.cover_model")
 local GymnasiumPicsModel = require("app.model.gymnasium_pics_model")
 local GymnasiumDescriModel = require("app.model.gymnasium_descri_model")
+local TrainnerPicsModel = require("app.model.trainner_pics_model")
+local TrainnerDescriModel = require("app.model.trainner_descri_model")
 local category = {
 					first="广告",
 					second = "柔道",
@@ -40,11 +42,15 @@ AdimPageRouter:get("/judo",function(req, res, next)
 		local covers = Covermodel:query_by_pagename(pagename)
 		local gymnasiumPics = GymnasiumPicsModel:query_by_pagename(pagename)
 		local GymnasiumDescri = GymnasiumDescriModel:query_descri_by_pagename(pagename)
+		local TrainnerPics  = TrainnerPicsModel:query_by_pagename(pagename)
+		local TrainnerDescr = TrainnerDescriModel:query_by_pagename(pagename)
 		res:render("admin_judo",{ title = category.second,
 								  pagename = pagename, 
 								  covers = covers,
 								  gymnasiumPics=gymnasiumPics,
-								  gymnasiumDescri =  GymnasiumDescri
+								  gymnasiumDescri =  GymnasiumDescri,
+								  TrainnerPics = TrainnerPics, 
+								  TrainnerDescr = TrainnerDescr
 								 })
 	
 	end)
@@ -56,10 +62,17 @@ AdimPageRouter:get("/yoga",function(req, res, next)
 		local pagename = "yoga"
 		local covers = Covermodel:query_by_pagename(pagename)
 		local gymnasiumPics = GymnasiumPicsModel:query_by_pagename(pagename)
+		local GymnasiumDescri = GymnasiumDescriModel:query_descri_by_pagename(pagename)
+		local TrainnerPics  = TrainnerPicsModel:query_by_pagename(pagename)
+		local TrainnerDescr = TrainnerDescriModel:query_by_pagename(pagename)
+
 		res:render("admin_judo",{ title = category.third,
 								  pagename = pagename, 
 								  covers = covers,
-								  gymnasiumPics=gymnasiumPics
+								  gymnasiumPics=gymnasiumPics,
+								  gymnasiumDescri =  GymnasiumDescri,
+								  TrainnerPics = TrainnerPics, 
+								  TrainnerDescr = TrainnerDescr
 								 })
 	
 	end)
@@ -71,10 +84,17 @@ AdimPageRouter:get("/freepower",function(req, res, next)
 		local pagename = "freepower"
 		local covers = Covermodel:query_by_pagename(pagename)
 		local gymnasiumPics = GymnasiumPicsModel:query_by_pagename(pagename)
+		local GymnasiumDescri = GymnasiumDescriModel:query_descri_by_pagename(pagename)
+		local TrainnerPics  = TrainnerPicsModel:query_by_pagename(pagename)
+		local TrainnerDescr = TrainnerDescriModel:query_by_pagename(pagename)
+
 		res:render("admin_judo",{ title = category.fouth,
 								  pagename = pagename, 
 								  covers = covers,
-								  gymnasiumPics=gymnasiumPics
+								  gymnasiumPics=gymnasiumPics,
+								  gymnasiumDescri =  GymnasiumDescri,
+								  TrainnerPics = TrainnerPics, 
+								  TrainnerDescr = TrainnerDescr
 								 })
 	
 	end)
@@ -86,10 +106,14 @@ AdimPageRouter:get("/aerabic",function(req, res, next)
 		local pagename = "aerabic"
 		local covers = Covermodel:query_by_pagename(pagename)
 		local gymnasiumPics = GymnasiumPicsModel:query_by_pagename(pagename)
+		local GymnasiumDescri = GymnasiumDescriModel:query_descri_by_pagename(pagename)
 		res:render("admin_judo",{ title = category.fiveth,
 								  pagename = pagename, 
 								  covers = covers,
-								  gymnasiumPics=gymnasiumPics
+								  gymnasiumPics=gymnasiumPics,
+								  gymnasiumDescri =  GymnasiumDescri,
+								  TrainnerPics = TrainnerPics, 
+								  TrainnerDescr = TrainnerDescr
 								 })
 
 	end)

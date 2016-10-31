@@ -1,9 +1,9 @@
 local lor = require("lor.index")
-local GymnasiumDescriRouter = lor:Router()
-local GymnasiumDescriModel =  require("app.model.gymnasium_descri_model")
+local TrainnerDescriRouter = lor:Router()
+local TrainnerDescriModel =  require("app.model.trainner_descri_model")
 
 
-GymnasiumDescriRouter:post("/new", function(req, res, next)
+TrainnerDescriRouter:post("/new", function(req, res, next)
 
 	local descri =  req.body.descri
 	local pagename    =  req.body.pagename
@@ -24,27 +24,21 @@ GymnasiumDescriRouter:post("/new", function(req, res, next)
 	end
 end)
 
-GymnasiumDescriRouter:post("/delete", function(req, res, next)
-
-	local id =  req.body.descri
-	if  GymnasiumDescriModel:delete_by_id(descri) then
-		res:json({
-                success = true,
-            })
-	else
-		es:json({
-                success = false,
-            })
-	end
-
-end)
 
 
-GymnasiumDescriRouter:("/update", function(req, res, next)
+TrainnerDescriRouter:post("/update", function(req, res, next)
 	local id =  req.body.id
-
-
-
+	local descri =  req.body.descri
+	local pagename = req.body.pagename
+	if GymnasiumDescriModel:update_by_id(id,descri) then
+	  res:json({
+	  			success = true
+	  	})
+	else
+	  res:json({
+	  			success = false
+	  	})
+	end
 end)
 
 

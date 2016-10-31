@@ -5,7 +5,7 @@ local uuid = require("app.libs.uuid.uuid")
 local gymnasium_descri_model= {}
 
 function gymnasium_descri_model:new(gymnasium_descri,pagename)
-	return db:query("insert into gymnasium_introduce (gymnasium_descri,page_name) value(?,?)",{gymnasium_descri,page_name})
+	return db:query("insert into gymnasium_introduce (gymnasium_descri,pagename) value(?,?)",{gymnasium_descri,pagename})
 end
  
 
