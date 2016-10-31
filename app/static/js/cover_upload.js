@@ -157,7 +157,7 @@
 
             accept: {
                 title: 'Images',
-                extensions: 'gif,jpg,jpeg,bmp,png',
+                extensions: 'jpg,jpeg,bmp,png',
                 mimeTypes: 'image/*'
             },
             
@@ -635,7 +635,7 @@
                 // coverImageArray.push(response._raw);
                 recordImageData(response._raw,pagname);
                 
-                var imageCount = $(".pic-box2").length;
+                var imageCount = $("#cover_image_list .pic-box2").length;
                         
                 if( imageCount == 4)
                 {

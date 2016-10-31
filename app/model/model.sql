@@ -32,7 +32,7 @@ DROP TABLE IF EXISTS `gymnasium_introduce`;
 CREATE TABLE `gymnasium_introduce` 
 (
 	`gymnasium_id`      int(11) unsigned NOT NULL AUTO_INCREMENT,
-	`gymnasium_descri`  varchar(225) NOT NULL DEFAULT '',
+	`gymnasium_descri`  varchar(1000) NOT NULL DEFAULT '',
 	`pagename`			varchar(225) NOT NULL DEFAULT '',
 	PRIMARY KEY (`gymnasium_id`)
 
@@ -56,12 +56,26 @@ CREATE TABLE `cover_pics`
 
 
 
+
+DROP TABLE IF EXISTS `trainer_pics`;
+
+CREATE TABLE `trainer_pics` (
+	`trainer_pic_id`           int(11) unsigned NOT NULL AUTO_INCREMENT,
+	`trainer_img`     	   varchar(225) NOT NULL DEFAULT '',
+	`pagename`   		   varchar(225) NOT NULL DEFAULT '',
+	PRIMARY KEY (`trainer_pic_id`)
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+
+
+
 DROP TABLE IF EXISTS `trainer_theme`;
 
 CREATE TABLE `trainer_theme` (
 	`trainer_id`           int(11) unsigned NOT NULL AUTO_INCREMENT,
-	`trainer_img_name`     varchar(225) NOT NULL DEFAULT '',
-	`trainer_descri`	   varchar(500) NOT NULL DEFAULT '',
+	`trainer_descri`	   varchar(1000) NOT NULL DEFAULT '',
 	`pagename`   		   varchar(225) NOT NULL DEFAULT '',
 	PRIMARY KEY (`trainer_id`)
 
