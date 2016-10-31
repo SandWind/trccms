@@ -6,6 +6,9 @@ proxy_temp
 tmp
 uwsgi_temp
 
+#mac
+.DS_Store
+
 # Compiled Lua sources
 luac.out
 
@@ -52,3 +55,6 @@ luac.out
 *.i*86
 *.x86_64
 *.hex
+
+#conf
+*.conf
