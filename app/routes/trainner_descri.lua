@@ -7,7 +7,7 @@ TrainnerDescriRouter:post("/new", function(req, res, next)
 
 	local descri =  req.body.descri
 	local pagename    =  req.body.pagename
-	local result,err = GymnasiumDescriModel:new(descri,pagename)
+	local result,err = TrainnerDescriModel:new(descri,pagename)
 	
 	if not result or err then
 	  res:json({
@@ -30,7 +30,7 @@ TrainnerDescriRouter:post("/update", function(req, res, next)
 	local id =  req.body.id
 	local descri =  req.body.descri
 	local pagename = req.body.pagename
-	if GymnasiumDescriModel:update_by_id(id,descri) then
+	if TrainnerDescriModel:update_by_id(id,descri) then
 	  res:json({
 	  			success = true
 	  	})
@@ -43,4 +43,4 @@ end)
 
 
 
-return GymnasiumDescriRouter
+return TrainnerDescriRouter

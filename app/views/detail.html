@@ -10,65 +10,64 @@
 				<img src="/static/files/logo.png"/>
 			</div>
 		
-			<div class="swiper-container">
+			<div class="swiper-container">		
+
 				<div class="swiper-wrapper">
-					<div class="swiper-slide">
-						<img src="img/banner.png" />
-					</div>
-					<div class="swiper-slide">
-						<img src="img/banner.png" />
-						
-					</div>
-					<div class="swiper-slide">
-						<img src="img/banner.png" />
-						
-					</div>
-					<div class="swiper-slide">
-						<img src="img/banner.png" />
-					</div>
-				</div>
+					{% for _,v in pairs(covers) do %}
+					 <div class="swiper-slide">
+						<div class="swiper-slide-div"><img src="{{v.cover_img}}" /></div>
+					 </div>
+					{%end%}
+				</div>	
 				<div class="pagination"></div>
 			</div>
 		</div>
+
 		<div class="wrap">
 			<div class="centerBox">
 				<div class="return">
-					<span>返回上一级</span>
+					<span href="/index">返回上一级</span>
 				</div>
 				<div class="erweima">
-					<img src="img/two-code.png" />
+					<img src="/static/files/two-code.png" />
 				</div>
 			</div>
 			
 			<div class="pic2">
 				<div class="pic2Word">
-					<p class="word1">柔道概述试测试测试测试</p>
-					<p class="word2">柔道具体介绍测试测试测试测试测试测试测试测试测试测试</p>
+					{% for _,v in pairs(gymnasiumDescri) do %}
+						<p class="word1">{*v.gymnasium_descri*}</p>
+					{%end%}
 				</div>
 				<div class="pic2Box">
-					<div class="picShow">
-						<img src="img/pic2.png" />
+					{%if #gymnasiumPics >0 then %}
+					<div class="picShow" style="background: url({{gymnasiumPics[1].gymnasium_pic}}) no-repeat center center;background-size: cover;">
 					</div>
+					{%end%}
 					<div class="picList">
 						<ul>
-							<li><img src="img/pic2.png" alt="" /></li>
-							<li><img src="img/pic3.png" alt="" /></li>
-							<li><img src="img/pic2.png" alt="" /></li>
-							<li><img src="img/pic2.png" alt="" /></li>
-							<li><img src="img/pic2.png" alt="" /></li>
-							<li><img src="img/pic2.png" alt="" /></li>
+							{% for _,v in pairs(gymnasiumPics) do %}
+							<li>
+								<div class="pic-box active" style="background: url({{v.gymnasium_pic}}) no-repeat center center;background-size: cover;"></div>
+							</li>
+							{%end%}
 						</ul>
 					</div>
 				</div>
 			</div>
 			
+
 			<div class="pic3">
 				<div class="pic3Word">
-					<p class="word1">柔道教练：某某某</p>
-					<p class="word2">教练简介测试测试测试测试测试测试测试测试测试测试测试测试测试</p>
+					{% for _,v in pairs(TrainnerDescr) do %}
+						<p class="word1">{*v.trainer_descri*}</p>
+					{%end%}
 				</div>
 				<div class="pic3Box">
-					<img src="img/pic3.png" />
+					{% for _,v in pairs(TrainnerPics) do %}
+						<img src="{{v.trainer_img}}" />
+					{%end%}
+					
 				</div>
 			</div>
 			
@@ -89,35 +88,39 @@
 							<th>星期六</th>
 							<th>星期天</th>
 						</tr>
+						{% for _,v in pairs(Courses) do %}
 						<tr>
-							<td class="timer">19:00~20:00</td>
-							<td>成人柔术</td>
-							<td>成人柔术</td>
-							<td>成人柔术</td>
-							<td>成人柔术成人</td>
-							<td>成人柔术</td>
-							<td>成人柔术</td>
-							<td>成人柔术成人柔术</td>
+							<td class="timer">{{v.mor_time}}</td>
+							<td>{{v.monday_mor}}</td>
+							<td>{{v.tuesday_mor}}</td>
+							<td>{{v.wednesday_mor}}</td>
+							<td>{{v.thursday_mor}}</td>
+							<td>{{v.friday_mor}}</td>
+							<td>{{v.saturday_mor}}</td>
+							<td>{{v.sunday_mor}}</td>
 						</tr>
 						<tr class="lasttr">
-							<td class="timer">19:00~20:00</td>
-							<td>成人柔术</td>
-							<td>成人柔术</td>
-							<td>成人柔术</td>
-							<td>成人柔术成人</td>
-							<td>成人柔术</td>
-							<td>成人柔术</td>
-							<td>成人柔术成人柔术</td>
+							<td class="timer">{{v.after_time}}</td>
+							<td>{{v.monday_after}}</td>
+							<td>{{v.tuesday_after}}</td>
+							<td>{{v.wednesday_after}}</td>
+							<td>{{v.thursday_after}}</td>
+							<td>{{v.friday_after}}</td>
+							<td>{{v.saturday_after}}</td>
+							<td>{{v.sunday_after}}</td>
 						</tr>
+						{%end%}
 					</table>
 				</div>
 			</div>
+			
 		</div>
+
 		{(detailfoot.html)}
 		
 		 <script>
 		 	//banner轮播
-			  var mySwiper = new Swiper('.swiper-container',{
+			   var mySwiper = new Swiper('.swiper-container',{
 			    pagination: '.pagination',
 			    loop:true,
 			    autoplay: 2000,
@@ -136,10 +139,10 @@
 			  $('.swiper-container').css('height',$(this).width()*0.3);
 			  //点击缩略图 显示大图
 			  $('.picList ul li').on('click',function(){
-			  	var src=$(this).find('img').attr('src');
-			  	$('.picList ul li img.imgActive').removeClass('imgActive');
-			  	$(this).find('img').addClass('imgActive');
-			  	$('.picShow img').attr('src',src);
+			  	var src=$(this).find('.pic-box').css('backgroundImage');
+			  	$('.picList ul li div.active').removeClass('active');
+			  	$(this).find('.pic-box').addClass('active');
+			  	$('.picShow').css('backgroundImage',src);
 			  })
 	    </script>
 	</body>

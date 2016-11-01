@@ -1,6 +1,5 @@
 -- 业务路由管理
 local userRouter = require("app.routes.user")
-local testRouter = require("app.routes.test")
 local HomePageRouter= require("app.routes.homepage")
 local judoPageRouter= require("app.routes.judo")
 local yogoPageRouter= require("app.routes.yoga")
@@ -14,6 +13,8 @@ local CoverRouter= require("app.routes.cover")
 local GymanasiumPicsRouter= require("app.routes.gymanasium_pics")
 local GymnasiumDescriRouter = require("app.routes.gymnasium_descri")
 local TrainnerPicRouter =  require("app.routes.trainner_pics")
+local TrainnerDescriRouter = require("app.routes.trainner_descri")
+local CourseRouter = require("app.routes.course")
 return function(app)
 
     -- -- group router, 对以`/user`开始的请求做过滤处理
@@ -55,6 +56,9 @@ return function(app)
     app:use("/gymnasiumPic",GymanasiumPicsRouter())
     app:use("/gymnasiumDescri",GymnasiumDescriRouter())
     app:use("/trainnerPic",TrainnerPicRouter())
-    
+    app:use("/trainnerDescri",TrainnerDescriRouter())
+    app:use("/course",CourseRouter())
+
+
 end
 

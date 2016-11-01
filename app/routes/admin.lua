@@ -6,6 +6,7 @@ local GymnasiumPicsModel = require("app.model.gymnasium_pics_model")
 local GymnasiumDescriModel = require("app.model.gymnasium_descri_model")
 local TrainnerPicsModel = require("app.model.trainner_pics_model")
 local TrainnerDescriModel = require("app.model.trainner_descri_model")
+local CourseModel =  require("app.model.course_model") 
 local category = {
 					first="广告",
 					second = "柔道",
@@ -44,13 +45,16 @@ AdimPageRouter:get("/judo",function(req, res, next)
 		local GymnasiumDescri = GymnasiumDescriModel:query_descri_by_pagename(pagename)
 		local TrainnerPics  = TrainnerPicsModel:query_by_pagename(pagename)
 		local TrainnerDescr = TrainnerDescriModel:query_by_pagename(pagename)
+		local Courses  = CourseModel:query_by_pagename(pagename)
+
 		res:render("admin_judo",{ title = category.second,
 								  pagename = pagename, 
 								  covers = covers,
 								  gymnasiumPics=gymnasiumPics,
 								  gymnasiumDescri =  GymnasiumDescri,
 								  TrainnerPics = TrainnerPics, 
-								  TrainnerDescr = TrainnerDescr
+								  TrainnerDescr = TrainnerDescr,
+								  Courses = Courses
 								 })
 	
 	end)
@@ -65,6 +69,7 @@ AdimPageRouter:get("/yoga",function(req, res, next)
 		local GymnasiumDescri = GymnasiumDescriModel:query_descri_by_pagename(pagename)
 		local TrainnerPics  = TrainnerPicsModel:query_by_pagename(pagename)
 		local TrainnerDescr = TrainnerDescriModel:query_by_pagename(pagename)
+		local Courses  = CourseModel:query_by_pagename(pagename)
 
 		res:render("admin_judo",{ title = category.third,
 								  pagename = pagename, 
@@ -72,7 +77,8 @@ AdimPageRouter:get("/yoga",function(req, res, next)
 								  gymnasiumPics=gymnasiumPics,
 								  gymnasiumDescri =  GymnasiumDescri,
 								  TrainnerPics = TrainnerPics, 
-								  TrainnerDescr = TrainnerDescr
+								  TrainnerDescr = TrainnerDescr,
+								  Courses = Courses
 								 })
 	
 	end)
@@ -87,6 +93,7 @@ AdimPageRouter:get("/freepower",function(req, res, next)
 		local GymnasiumDescri = GymnasiumDescriModel:query_descri_by_pagename(pagename)
 		local TrainnerPics  = TrainnerPicsModel:query_by_pagename(pagename)
 		local TrainnerDescr = TrainnerDescriModel:query_by_pagename(pagename)
+		local Courses  = CourseModel:query_by_pagename(pagename)
 
 		res:render("admin_judo",{ title = category.fouth,
 								  pagename = pagename, 
@@ -94,7 +101,8 @@ AdimPageRouter:get("/freepower",function(req, res, next)
 								  gymnasiumPics=gymnasiumPics,
 								  gymnasiumDescri =  GymnasiumDescri,
 								  TrainnerPics = TrainnerPics, 
-								  TrainnerDescr = TrainnerDescr
+								  TrainnerDescr = TrainnerDescr,
+								  Courses = Courses
 								 })
 	
 	end)
@@ -107,13 +115,18 @@ AdimPageRouter:get("/aerabic",function(req, res, next)
 		local covers = Covermodel:query_by_pagename(pagename)
 		local gymnasiumPics = GymnasiumPicsModel:query_by_pagename(pagename)
 		local GymnasiumDescri = GymnasiumDescriModel:query_descri_by_pagename(pagename)
+		local TrainnerPics  = TrainnerPicsModel:query_by_pagename(pagename)
+		local TrainnerDescr = TrainnerDescriModel:query_by_pagename(pagename)
+		local Courses  = CourseModel:query_by_pagename(pagename)
+
 		res:render("admin_judo",{ title = category.fiveth,
 								  pagename = pagename, 
 								  covers = covers,
 								  gymnasiumPics=gymnasiumPics,
 								  gymnasiumDescri =  GymnasiumDescri,
 								  TrainnerPics = TrainnerPics, 
-								  TrainnerDescr = TrainnerDescr
+								  TrainnerDescr = TrainnerDescr,
+								  Courses = Courses
 								 })
 
 	end)

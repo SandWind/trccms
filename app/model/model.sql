@@ -101,6 +101,8 @@ CREATE TABLE `course` (
 	`friday_after`    varchar(225) NOT NULL DEFAULT '',
 	`saturday_mor`    varchar(225) NOT NULL DEFAULT '',
 	`saturday_after`  varchar(225) NOT NULL DEFAULT '',
+	`sunday_mor`    varchar(225) NOT NULL DEFAULT '',
+	`sunday_after`  varchar(225) NOT NULL DEFAULT '',
 	`pagename`  	  varchar(225) NOT NULL DEFAULT '',
 	PRIMARY KEY (`course_id`)
 

@@ -56,6 +56,3 @@ luac.out
 *.x86_64
 *.hex
 
-#conf
-*.conf
-config.lua

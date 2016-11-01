@@ -169,7 +169,7 @@
 						</div>
 						
 						<div class="saveBox">
-							<span class="btn-new-ad">确认</span>
+							<span class="btn-new-ad" id= "trainner_text">保存</span>
 						</div>
 					</div>
 				</div>
@@ -192,31 +192,56 @@
 							<th>星期六</th>
 							<th>星期天</th>
 						</tr>
+                        {%if #Courses > 0 then %}
+                          {% for _,v in pairs(Courses) do %}
+                            <tr>
+                              <td><input type="text" name="mor_time"    value="{{v.mor_time}}"></td>
+                              <td><input type="text" name="monday_mor"  value="{{v.monday_mor}}"></td>
+                              <td><input type="text" name="tuesday_mor" value="{{v.tuesday_mor}}"></td>
+                              <td><input type="text" name="wednesday_mor" value="{{v.wednesday_mor}}"></td>
+                              <td><input type="text" name="thursday_mor"  value="{{v.thursday_mor}}"></td>
+                              <td><input type="text" name="friday_mor"   value="{{v.friday_mor}}"></td>
+                              <td><input type="text" name="saturday_mor" value="{{v.saturday_mor}}"></td>
+                              <td><input type="text" name="sunday_mor"   value="{{v.sunday_mor}}"></td>
+                            </tr>
+                            <tr>
+                              <td><input type="text" name="after_time" value="{{v.after_time}}"></td>
+                              <td><input type="text" name="monday_after" value="{{v.monday_after}}"></td>
+                              <td><input type="text" name="tuesday_after" value="{{v.tuesday_after}}"></td>
+                              <td><input type="text" name="wednesday_after" value="{{v.wednesday_after}}"></td>
+                              <td><input type="text" name="thursday_after" value="{{v.thursday_after}}"></td>
+                              <td><input type="text" name="friday_after" value="{{v.friday_after}}"></td>
+                              <td><input type="text" name="saturday_after" value="{{v.saturday_after}}"></td>
+                            <td><input type="text" name="sunday_after" value="{{v.sunday_after}}"></td>
+                           </tr>
+                          {%end%}
+                        {%else%}
 						<tr>
-							<td><input type="text" name=""></td>
-							<td><input type="text" name=""></td>
-							<td><input type="text" name=""></td>
-							<td><input type="text" name=""></td>
-							<td><input type="text" name=""></td>
-							<td><input type="text" name=""></td>
-							<td><input type="text" name=""></td>
-							<td><input type="text" name=""></td>
+							<td><input type="text" name="mor_time"></td>
+							<td><input type="text" name="monday_mor"></td>
+							<td><input type="text" name="tuesday_mor"></td>
+							<td><input type="text" name="wednesday_mor"></td>
+							<td><input type="text" name="thursday_mor"></td>
+							<td><input type="text" name="friday_mor"></td>
+							<td><input type="text" name="saturday_mor"></td>
+							<td><input type="text" name="sunday_mor"></td>
 						</tr>
 						<tr>
-							<td><input type="text" name=""></td>
-							<td><input type="text" name=""></td>
-							<td><input type="text" name=""></td>
-							<td><input type="text" name=""></td>
-							<td><input type="text" name=""></td>
-							<td><input type="text" name=""></td>
-							<td><input type="text" name=""></td>
-							<td><input type="text" name=""></td>
+							<td><input type="text" name="after_time"></td>
+							<td><input type="text" name="monday_after"></td>
+							<td><input type="text" name="tuesday_after"></td>
+							<td><input type="text" name="wednesday_after"></td>
+							<td><input type="text" name="thursday_after"></td>
+							<td><input type="text" name="friday_after"></td>
+							<td><input type="text" name="saturday_after"></td>
+							<td><input type="text" name="sunday_after"></td>
 						</tr>
+                        {%end%}
 					</table>
 					
 				</div>
 				<div class="savepage" style="margin-left: auto;text-align:center;margin-right: auto;" >
-						<span class="btn-new-ad">保存课表信息</span>
+						<span class="btn-new-ad" id="course_save">保存课表信息</span>
 				</div>
 			</div>
 		</div>
@@ -301,6 +326,9 @@
         var descri_id;
         var api_trainner_url;
         var trainner_descri_id;
+        var course_api_url;
+        var course_id;
+
         {%if #gymnasiumDescri > 0 then %}
             api_descri_Url = '/gymnasiumDescri/update';
             {%for _,v in pairs(gymnasiumDescri) do %}
@@ -317,6 +345,16 @@
             {%end%}
         {%else%}
             api_trainner_url = '/trainnerDescri/new';
+        {%end%}
+
+        {%if #Courses > 0 then %}
+            course_api_url = '/course/update';
+            {% for _,v in pairs(Courses) do %}
+                course_id = {{v.course_id}};
+            {%end%}
+
+        {%else%}
+            course_api_url = '/course/new';
         {%end%}
 
 
@@ -441,6 +479,21 @@
             }
         }
 
+        function trainnerUploader(){
+
+            var imageCount = $("#trainner_image_list .pic-box2").length;
+            
+            if( imageCount == 1)
+            {
+               $("#trainner_uploader").hide();
+            }
+            else
+            {
+              $("#trainner_uploader").show();
+            }
+        }
+
+
         function selectNav(){
 
             var title = document.title;
@@ -462,6 +515,12 @@
         $('#gymnasium_text').on('click',function(){
 
                 var content = editor1.$txt.html();
+
+                if (content.length < 20) 
+                {
+                    alert("请补充完内容");
+                    return;
+                }
                 
                 if(content.length > 1000)
                 {
@@ -489,15 +548,13 @@
                 success:function(result){
                     if(result.success)
                     {
-                        api_descri_Url = '/gymnasiumDescri/update';
-                        descri_id = result.DescriId;
                         alert("保存场馆成功");
                     }
                     else
                     {
                         alert("保存场馆介绍失败");
                     }
-
+                    window.location.reload();
                 },
                 error:function(){
                      alert("保存场馆介绍出现异常，请检查网络");
@@ -550,12 +607,133 @@
             deltrainnerPic(delObject,ImageId);
 
         }
+        $('#trainner_text').on('click',function(){
+
+                var content = editor2.$txt.html();
+
+                if (content.length < 20) 
+                {
+                    alert("请补充完内容");
+                    return;
+                }
+                
+                if(content.length > 1000)
+                {
+                    alert("超过编辑最大字数");
+                    return;
+                }
+
+            $.ajax({
+                url: api_trainner_url,
+                type:'post',
+                async: true,
+                {% if #TrainnerDescr > 0 then %}      
+                    data:{
+                            id:trainner_descri_id,
+                            descri: content,
+                            pagename: $('.container').attr('data-pagename')
+                    },
+                {%else%}
+                    data:{
+                            descri: content,
+                            pagename: $('.container').attr('data-pagename')
+                    },      
+                {%end%}
+                dataType : 'json',
+                success:function(result){
+                    if(result.success)
+                    {
+                        alert("保存教练介绍成功");
+                    }
+                    else
+                    {
+                        alert("保存场教练介绍绍失败");
+                    }
+                    window.location.reload();
+                },
+                error:function(){
+                     alert("保存教练介绍出现异常，请检查网络");
+                }
+
+
+            });
+
+        });
         
+        
+
+
+        $('#course_save').on('click',function(){
+            $.ajax({
+                url: course_api_url,
+                type:'post',
+                async: true,
+                {%if #Courses > 0 then %}
+                    data:{
+                         id:course_id,
+                         mor_time:$("input[name=mor_time]").val(),
+                         after_time:$("input[name=after_time]").val(),
+                         monday_mor:$("input[name=monday_mor]").val(),
+                         monday_after:$("input[name=monday_after]").val(),
+                         tuesday_mor:$("input[name=tuesday_mor]").val(),
+                         tuesday_after:$("input[name=tuesday_after]").val(),
+                         wednesday_mor:$("input[name=wednesday_mor]").val(),
+                         wednesday_after:$("input[name=wednesday_after]").val(),
+                         thursday_mor:$("input[name=thursday_mor]").val(),
+                         thursday_after:$("input[name=thursday_after]").val(),
+                         friday_mor:$("input[name=friday_mor]").val(),
+                         friday_after:$("input[name=friday_after]").val(),
+                         saturday_mor:$("input[name=saturday_mor]").val(),
+                         saturday_after:$("input[name=saturday_after]").val(),
+                         sunday_mor:$("input[name=sunday_mor]").val(),
+                         sunday_after:$("input[name=sunday_after]").val()
+                    },
+                {%else%}
+                     data:{
+                         mor_time:$("input[name=mor_time]").val(),
+                         after_time:$("input[name=after_time]").val(),
+                         monday_mor:$("input[name=monday_mor]").val(),
+                         monday_after:$("input[name=monday_after]").val(),
+                         tuesday_mor:$("input[name=tuesday_mor]").val(),
+                         tuesday_after:$("input[name=tuesday_after]").val(),
+                         wednesday_mor:$("input[name=wednesday_mor]").val(),
+                         wednesday_after:$("input[name=wednesday_after]").val(),
+                         thursday_mor:$("input[name=thursday_mor]").val(),
+                         thursday_after:$("input[name=thursday_after]").val(),
+                         friday_mor:$("input[name=friday_mor]").val(),
+                         friday_after:$("input[name=friday_after]").val(),
+                         saturday_mor:$("input[name=saturday_mor]").val(),
+                         saturday_after:$("input[name=saturday_after]").val(),
+                         sunday_mor:$("input[name=sunday_mor]").val(),
+                         sunday_after:$("input[name=sunday_after]").val(),
+                         pagename: $('.container').attr('data-pagename')
+                    },
+                {%end%}
+                dataType : 'json',
+                success:function(result){
+                    if(result.success)
+                    {
+                        alert("保存课程表成功");
+                    }
+                    else
+                    {
+                        alert("保存课程表失败");
+                    }
+                    window.location.reload();
+                },
+                error:function(){
+
+                }
+            });
+
+
+        });
 
 		$(document).ready(function(){ 
 　　	　 		selectNav();
 　　	　 		coverUploader();
 　　	　      gymnasiumUploader();
+            trainnerUploader();
 
 		}); 
 
