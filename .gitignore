@@ -58,3 +58,4 @@ luac.out
 
 #conf
 *.conf
+config.lua
