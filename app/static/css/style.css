@@ -70,19 +70,19 @@ a {cursor: pointer;}
 .imgActive {border: 1px solid #d0aa25;}
 .imgunActive {border: 1px solid #fff;}
 .pic2Word {width: 630px;background: #151515;padding-bottom: 30px;padding-top: 30px;}
-.pic2Word p {width: 245px;margin-left: 18px;line-height: 1.5;color: #FFFFFF;}
+.pic2Word p {font-size: 20px;width: 245px;margin-left: 18px;line-height: 1.5;color: #FFFFFF;}
 .pic2Word .word1 {font-size: 15px}
 .pic2Word .word2 {font-size: 14px;margin-top: 30px;color: #B5B5B5;}
 .pic2 {top: 0;right: 90px;position: relative;}
 .pic2 .pic2Word,.pic2 .pic2Box {position: absolute;}
-.pic2 .pic2Word {right: 70px;top: 0px;}
+.pic2 .pic2Word {right: 200px;top: 0px;}
 .pic2 .pic2Box {top: 10px;right: 0px;}
 .pic3 {position: relative;top: 615px;}
-.pic3 .pic3Word {width: 255px;padding: 20px 25px 20px 15px;background: #151515;position: absolute;left: 430px;z-index: 999;}
-.pic3 .pic3Word p {color: #FFFFFF;}
+.pic3 .pic3Word {width: 420px;padding: 20px 25px 20px 15px;background: #151515;position: absolute;left: 430px;z-index: 999;}
+.pic3 .pic3Word p {font-size: 20px;color: #FFFFFF;}
 .pic3 .pic3Word .word1 {font-size: 20px;}
 .pic3 .pic3Word .word2 {font-size: 12px;margin-top: 30px;}
-.pic3 .pic3Box{width: 495px;height: 345px;position: absolute;}
+.pic3 .pic3Box{width: 465px;height: 426px;position: absolute;}
 .pic3 .pic3Box img{width: 100%;height: 100%;}
 .pic4 {position: relative;right: 0px;top: 1230px;display: inline-block;float: right;}
 .pic4 .head {margin-bottom: 20px;}

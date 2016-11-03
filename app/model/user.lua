@@ -1,13 +1,20 @@
 local DB = require("app.libs.db")
 local db = DB:new()
-
+local utils  = require("app.libs.utils")
 local user_model = {}
 
 
-function user_model:new(username, password, avatar)
-    return db:query("insert into user(username, password, avatar) values(?,?,?)",
-            {username, password, avatar})
+function user_model:new(username, password)
+    -- local  create_time = utils.now()
+    return db:query("insert into user(username, password,is_admin) values(?,?,0)",{username, password})
 end
+
+
+
+-- function user_model:new(username, password, avatar)
+--     return db:query("insert into user(username, password, avatar) values(?,?,?)",
+--             {username, password, avatar})
+-- end
 
 function user_model:query_ids(usernames)
    local res, err =  db:query("select id from user where username in(" .. usernames .. ")")
@@ -31,12 +38,22 @@ end
 -- return user, err
 function user_model:query_by_username(username)
    	local res, err =  db:query("select * from user where username=? limit 1", {username})
+    
    	if not res or err or type(res) ~= "table" or #res ~=1 then
 		return nil, err or "error"
-	end
+    end
 
 	return res[1], err
 end
+
+
+function user_model:get_by_username(username)
+    local res, err =  db:query("select * from user where username=? limit 1", {username})
+
+    return res, err
+end
+
+
 
 function user_model:update_avatar(userid, avatar)
     db:query("update user set avatar=? where id=?", {avatar, userid})

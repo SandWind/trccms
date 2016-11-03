@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html lang="zh" class="no-js ie6 lt8"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="zh" class="no-js ie7 lt8"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="zh" class="no-js ie8 lt8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="zh" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="zh" class="no-js"> <!--<![endif]-->
+{(UserMeta.html)}
+    <body>
+        <div class="container">
+            <header>
+                <h1><div class="logo"></div></h1>
+                
+            </header>
+            <section>               
+                <div id="container_demo" >
+                    <!-- hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4  -->
+                    <a class="hiddenanchor" id="toregister"></a>
+                    <a class="hiddenanchor" id="tologin"></a>
+                    <div id="wrapper">
+                        <div id="login" class="animate form">
+                            <form  id="loginForm" autocomplete="on"> 
+                                <h1>登录</h1> 
+                                <p id="login_info"></p> 
+                                <p> 
+                                    <label for="username" class="uname" data-icon="u" > 输入您的用户名 </label>
+                                    <input id="username" name="username" required="required" type="text" placeholder="myusername or mymail@mail.com"/>
+                                </p>
+                                <p> 
+                                    <label for="password" class="youpasswd" data-icon="p"> 请输入密码 </label>
+                                    <input id="password" name="password" required="required" type="password" placeholder="eg. X8df!90EO" /> 
+                                </p>
+                               <!--  <p class="keeplogin"> 
+                                    <input type="checkbox" name="loginkeeping" id="loginkeeping" value="loginkeeping" /> 
+                                    <label for="loginkeeping">Keep me logged in</label>
+                                </p> -->
+                                <p class="login button" id="login_button"> 
+                                    <input type="button" value="登录" /> 
+                                </p>
+                                <p class="change_link">
+                                    想修改密码 ?
+                                    <a href="#toregister" class="to_register">修改密码</a>
+                                </p>
+                            </form>
+                        </div>
+
+                        <div id="register" class="animate form">
+                            <form  id="modifypassword"  autocomplete="on" > 
+                                <h1> 修改密码 </h1> 
+                                <p id="login_modify"></p> 
+                                <p> 
+                                    <label for="usernamesignup" class="uname" data-icon="u">输入您的用户名</label>
+                                    <input id="usernamesignup" name="username" required="required" type="text" placeholder="mysuperusername690" />
+                                </p>
+                               <!--  <p> 
+                                    <label for="emailsignup" class="youmail" data-icon="e" > Your email</label>
+                                    <input id="emailsignup" name="emailsignup" required="required" type="email" placeholder="mysupermail@mail.com"/> 
+                                </p> -->
+                                <p> 
+                                    <label for="passwordsignup" class="youpasswd" data-icon="p">请超级管理密码 </label>
+                                    <input id="passwordsignup" name="superpassword" required="required" type="password" placeholder="eg. X8df!90EO"/>
+                                </p>
+
+                                <p> 
+                                    <label for="passwordsignup_confirm" class="youpasswd" data-icon="p">新的登录密码</label>
+                                    <input id="passwordsignup_confirm" name="password" required="required" type="password" placeholder="eg. X8df!90EO"/>
+                                </p>
+
+                                <p class="signin button" id="signin_button"> 
+                                    <input type="button" value="提交"/> 
+                                </p>
+                                <p class="change_link">  
+                                    已经注册的成员 ?
+                                    <a href="#tologin" class="to_register"> 登录 </a>
+                                </p>
+                            </form>
+                        </div>
+                        
+                    </div>
+                </div>  
+            </section>
+        </div>
+    </body>
+    <script type="text/javascript">
+
+    
+    $('#login_button').click(function(){
+
+        var frm = $('#loginForm');
+        var data = frm.serialize();
+       
+        $.ajax({
+            url:'/auth/login',
+            type:'post',
+            async: true,
+            data:data,
+            dataType : 'json',
+            success : function(result){
+                if (result.success) 
+                {
+                    window.location.href="/admin/";
+                }
+                else
+                {
+                     $('#login_info').text(result.msg);
+                     $('#login_info').addClass('highlight');
+                }
+            },
+            error:function(){
+                $('#login_info').text('请检查网络是否正常');
+                $('#login_info').addClass('highlight');
+            }
+        });
+
+
+    });
+
+
+
+    $('#signin_button').click(function(){
+
+        var frm = $('#modifypassword');
+        var data = frm.serialize();
+       
+        $.ajax({
+            url:'/auth/changpwd',
+            type:'post',
+            async: true,
+            data:data,
+            dataType : 'json',
+            success : function(result){
+                if (result.success) 
+                {
+                     $('#login_modify').text(result.msg);
+                     $('#login_modify').addClass('highlight');
+                     window.location.href="/auth/login";
+                }
+                else
+                {
+                     $('#login_modify').text(result.msg);
+                     $('#login_modify').addClass('highlight');
+                }
+            },
+            error:function(){
+                $('#login_modify').text('请检查网络是否正常');
+                $('#login_modify').addClass('highlight');
+            }
+        });
+
+
+    });
+
+    
+
+
+
+
+
+
+
+
+
+
+    </script>
+</html>

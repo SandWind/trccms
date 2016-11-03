@@ -1,0 +1,63 @@
+/* latin-ext */
+@font-face {
+  font-family: 'Capriola';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Capriola Regular'), local('Capriola-Regular'), url(http://fonts.gstatic.com/s/capriola/v4/MCXNg459ZtebBVYIDxweyhkAz4rYn47Zy2rvigWQf6w.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Capriola';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Capriola Regular'), local('Capriola-Regular'), url(http://fonts.gstatic.com/s/capriola/v4/1uu0rRDB9aBBIKvbF1Q_1HYhjbSpvc47ee6xR_80Hnw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+body{
+  font-family: 'Capriola', sans-serif;
+  background: #fff url(/static/files/bg2.jpg) repeat top left;
+  font-weight: 400;
+  font-size: 15px;
+  color: #1d3c41;
+  overflow-y: scroll;
+}
+ 
+.wrap{
+  margin:0 auto;
+  width:1000px;
+}
+.logo h1{
+  font-size:200px;
+  color:#FF7A00;
+  text-align:center;
+  margin-bottom:1px;
+  text-shadow:4px 4px 1px white;
+} 
+.logo p{
+  color:#B1A18D;;
+  font-size:20px;
+  margin-top:1px;
+  text-align:center;
+} 
+.logo p span{
+  color:lightgreen;
+} 
+.sub a{
+  color:#ff7a00;
+  text-decoration:none;
+  padding:5px;
+  font-size:13px;
+  font-family: arial, serif;
+  font-weight:bold;
+} 
+.footer{
+  color:white;
+  position:absolute;
+  right:10px;
+  bottom:10px;
+} 
+.footer a{
+  color:#ff7a00;
+} 

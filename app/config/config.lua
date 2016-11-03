@@ -1,12 +1,14 @@
 return {
 	-- 白名单配置：不需要登录即可访问；除非要二次开发，否则不应更改
 	whitelist = {
-		"^/admin$",
-		"^/admin/ad$",
-		"^/admin/judo$",
-		"^/admin/yoga$",
-		"^/admin/freePower$",
-		"^/admin/aerabic$"
+		"^/adtopic/[0-9a-zA-Z-_]+/detail$",
+		"^/judo/detail$",
+		"^/yogo/detail$",
+		"^/freepower/detail$",
+		"^/aerabic/detail$",
+		"^/auth/login$",
+		"^/auth/sign_up$",
+		"^/auth/changpwd$"
 	},
 
 	-- 静态模板配置，保持默认不修改即可
@@ -30,6 +32,8 @@ return {
 
 	-- 生成session的secret，请一定要修改此值为一复杂的字符串，用于加密session
 	session_secret = "5a7538b6af1c8ac0f7dc9d2d7d7383de",
+
+	superpassword  = "trccms",
     
 	-- 用于存储密码的盐，请一定要修改此值, 一旦使用不能修改，用户也可自行实现其他密码方案
 	pwd_secret = "salt_secret_for_password", 

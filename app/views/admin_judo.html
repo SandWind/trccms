@@ -9,13 +9,16 @@
 		<div class="top">
 			<div>
 				<img src="/static/files/logo.png" />
-				<span class="logout">退出登录</span>
+				<a href="/auth/logout">
+                    <span class="logout">退出登录</span>
+                </a>
+                
 			</div>
 		</div>
 
 		<div class="container" data-pagename="{{pagename}}">
 			<div class="nav">
-				<span><a  href="/admin/ad">首页广告</a></span>
+				<span><a  href="/admin/ad">广告</a></span>
 				<span><a  href="/admin/judo">柔道</a></span>
 				<span><a  href="/admin/yoga">瑜伽</a></span>
 				<span><a  href="/admin/freepower">自由力量</a></span>

@@ -6,6 +6,8 @@ local view_config = config.view_config
 local upload_config = config.upload_config
 local app = lor()
 local uploader_middleware = require("app.middleware.uploader")
+local check_login_middleware = require("app.middleware.check_login")
+local whitelist = config.whitelist
 -- session和cookie支持，如果不需要可注释以下四行
 -- local middleware_cookie = require("lor.lib.middleware.cookie")
 local session_middleware = require("lor.lib.middleware.session")
@@ -23,9 +25,9 @@ app:use(reponse_time_middleware({
     suffix = true
 }))
 
--- app:use(session_middleware({
---     secret = config.session_secret -- 必须修改此值
--- }))
+app:use(session_middleware({
+    secret = config.session_secret -- 必须修改此值
+}))
 
 
 app:use(uploader_middleware({
@@ -35,7 +37,7 @@ app:use(uploader_middleware({
 
 
 
--- app:use(check_login_middleware(whitelist))   --检查是否登录
+app:use(check_login_middleware(whitelist))   --检查是否登录
 
 -- app:use(function(req, res, next)
 --     -- 插件，在处理业务route之前的插件，可作编码解析、过滤等操作
@@ -49,7 +51,8 @@ router(app) -- 业务路由处理
 -- 404 error
 app:use(function(req, res, next)
     if req:is_found() ~= true then
-        res:status(404):send("sorry, not found.")
+        -- res:status(404):send("sorry, not found.")
+        res:status(404):render("notfound")
     end
 end)
 

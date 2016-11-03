@@ -110,10 +110,25 @@ CREATE TABLE `course` (
 
 
 
+DROP TABLE IF EXISTS `user`;
 
-DROP TABLE IF EXISTS `detail_topic`;
+CREATE TABLE `user` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) NOT NULL DEFAULT '',
+  `password` varchar(255) NOT NULL DEFAULT '',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '注册时间',
+  `is_admin` int(11) DEFAULT '0' COMMENT '1管理员，0普通用户',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_username` (`username`)
 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+LOCK TABLES `user` WRITE;
 
+INSERT INTO `user` (`id`, `username`, `password`, `create_time`,`is_admin`)
+VALUES
+(1,'admin','2d39682dbb53e8b7df86581b0e48a5f8a4f2815617360c4d9607945b5cdde4c5','2016-02-19 19:08:00',1);
+
+UNLOCK TABLES;
 
 
 
